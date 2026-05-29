@@ -1,0 +1,4165 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculateur de total du compte Rogers</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css" />
+  <style>
+    /* Polices de marque Rogers et Fido */
+     @font-face {
+          font-family: 'Ted Next';
+          src: url('https://raw.githubusercontent.com/rogersrepaccess/repaccess-fr/main/fonts/TedNext-Regular.woff') format('woff');
+          font-weight: normal;
+          font-style: normal;
+        }
+
+        @font-face {
+          font-family: 'Ted Next';
+          src: url('https://raw.githubusercontent.com/rogersrepaccess/repaccess-fr/main/fonts/TedNext-Italic.woff') format('woff');
+          font-weight: normal;
+          font-style: italic;
+        }
+
+        @font-face {
+          font-family: 'Ted Next';
+          src: url('https://raw.githubusercontent.com/rogersrepaccess/repaccess-fr/main/fonts/TedNext-Semibold.woff') format('woff');
+          font-weight: bold;
+          font-style: normal;
+        }
+
+        @font-face {
+          font-family: 'Ted Next';
+          src: url('https://raw.githubusercontent.com/rogersrepaccess/repaccess-fr/main/fonts/TedNext-SemiBoldItalic.woff') format('woff');
+          font-weight: bold;
+          font-style: italic;
+        }
+
+        @font-face {
+          font-family: 'Ted Next';
+          src: url('https://raw.githubusercontent.com/rogersrepaccess/repaccess-fr/main/fonts/TedNext-Bold.woff') format('woff');
+          font-weight: 800;
+          font-style: normal;
+        }
+
+        @font-face {
+          font-family: 'Ted Next';
+          src: url('https://raw.githubusercontent.com/rogersrepaccess/repaccess-fr/main/fonts/TedNext-BoldItalic.woff') format('woff');
+          font-weight: 800;
+          font-style: italic;
+        }
+
+        @font-face {
+          font-family: 'Ted Next';
+          src: url('https://raw.githubusercontent.com/rogersrepaccess/repaccess-fr/main/fonts/TedNext-Light.woff') format('woff');
+          font-weight: lighter;
+          font-style: normal;
+        }
+
+        @font-face {
+          font-family: 'Ted Next';
+          src: url('https://raw.githubusercontent.com/rogersrepaccess/repaccess-fr/main/fonts/TedNext-LightItalic.woff') format('woff');
+          font-weight: lighter;
+          font-style: italic;
+        }
+
+        @font-face {
+          font-family: 'Ted Next Condensed';
+          src: url('https://raw.githubusercontent.com/rogersrepaccess/repaccess-fr/main/fonts/TedNext-Condensed.woff') format('woff');
+          font-weight: normal;
+          font-style: normal;
+        }
+
+     @font-face {
+          font-family: 'Yolo';
+          src: url('https://raw.githubusercontent.com/rogersrepaccess/repaccess-fr/main/fonts/Yolo-Regular.woff') format('woff');
+          font-weight: normal;
+          font-style: normal;
+        }
+
+        @font-face {
+          font-family: 'Yolo';
+          src: url('https://raw.githubusercontent.com/rogersrepaccess/repaccess-fr/main/fonts/Yolo-Bold.woff') format('woff');
+          font-weight: bold;
+          font-style: normal;
+        }
+
+    :root {
+      --rogers-red: #DA291C;
+      --rogers-dark-red: #b51d15;
+      --brand-primary: #DA291C;
+      --brand-secondary: #1A1A1A;
+      --brand-accent: #DA291C;
+      --brand-font: 'Ted Next', Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --soft: #f8fafc;
+      --soft-red: #fff1f0;
+      --success: #0f766e;
+      --warning: #b45309;
+      --danger: #b91c1c;
+      --card: #ffffff;
+      --shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+      --radius-lg: 18px;
+      --radius-md: 13px;
+      --radius-sm: 9px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: var(--brand-font);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(225, 37, 27, 0.11), transparent 30%),
+        linear-gradient(135deg, #ffffff 0%, #f6f7fb 42%, #eef2f7 100%);
+    }
+
+    body.provider-rogers {
+      --rogers-red: #DA291C;
+      --rogers-dark-red: #b51d15;
+      --brand-primary: #DA291C;
+      --brand-secondary: #1A1A1A;
+      --brand-accent: #DA291C;
+      --brand-font: 'Ted Next', Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --soft-red: #fff1f0;
+    }
+
+    body.provider-fido {
+      --rogers-red: #FFE600;
+      --rogers-dark-red: #008d89;
+      --brand-primary: #FFE600;
+      --brand-secondary: #00AFAB;
+      --brand-accent: #00AFAB;
+      --brand-font: 'Yolo', 'Ted Next', Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --soft-red: #fffbea;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255, 230, 0, 0.18), transparent 30%),
+        radial-gradient(circle at 90% 12%, rgba(0, 175, 171, 0.13), transparent 28%),
+        linear-gradient(135deg, #ffffff 0%, #fbfbef 42%, #eef8f8 100%);
+    }
+
+
+    button, input, select, textarea { font: inherit; }
+
+    .app-shell {
+      width: min(1480px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--soft-red);
+      color: var(--rogers-dark-red);
+      font-weight: 800;
+      font-size: 0.82rem;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 14px 0 8px;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 0.97;
+      letter-spacing: -0.06em;
+    }
+
+    .subtitle {
+      max-width: 880px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.55;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .brand-logo-mark {
+      width: 74px;
+      height: 74px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 22px rgba(15, 23, 42, .12));
+    }
+
+    .provider-switch {
+      min-width: 310px;
+      padding: 12px;
+      border: 1px solid rgba(226, 232, 240, .95);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,.9);
+      box-shadow: var(--shadow);
+    }
+
+    .provider-switch-title {
+      margin: 0 0 8px;
+      font-size: .78rem;
+      font-weight: 950;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .provider-options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .provider-option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 950;
+      transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease, background .14s ease;
+    }
+
+    .provider-option:hover { transform: translateY(-1px); }
+
+    .provider-option.active {
+      border-color: color-mix(in srgb, var(--rogers-red) 58%, #d1d5db);
+      background: var(--soft-red);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, .08);
+    }
+
+    .provider-option img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+
+    .info-card {
+      margin-bottom: 14px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(226, 232, 240, .95);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      background: none;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .info-card-header h2 {
+      margin: 0;
+      font-size: 1.03rem;
+      letter-spacing: -.02em;
+    }
+
+    .info-card-body {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 12px;
+      padding: 12px;
+    }
+
+    .store-lookup-row {
+      display: grid;
+      grid-template-columns: minmax(130px, 1fr) auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .store-coordinates {
+      margin-top: 8px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: #f8fafc;
+      line-height: 1.35;
+      font-size: .9rem;
+    }
+
+    .store-coordinates strong { display: block; margin-bottom: 3px; }
+    .store-coordinates .muted { color: var(--muted); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 430px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .toolbar, .summary-card, .line-card {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      margin-bottom: 14px;
+      position: sticky;
+      top: 10px;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+    }
+
+    .add-controls {
+      display: grid;
+      grid-template-columns: minmax(220px, 320px) auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .small-note {
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.35;
+    }
+
+    select, input, textarea {
+      width: 100%;
+      border: 1px solid #d7dce4;
+      border-radius: 12px;
+      padding: 8px 10px;
+      background: #fff;
+      color: var(--ink);
+      outline: none;
+      transition: border-color .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(225, 37, 27, 0.65);
+      box-shadow: 0 0 0 4px rgba(225, 37, 27, 0.10);
+    }
+
+    input:disabled {
+      background: #f3f4f6;
+      color: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 4px;
+      color: #374151;
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 38px;
+      transition: transform .14s ease, box-shadow .14s ease, background .14s ease, opacity .14s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    .btn-primary {
+      color: white;
+      background: var(--rogers-red);
+      box-shadow: 0 10px 24px rgba(225, 37, 27, 0.22);
+    }
+
+    .btn-primary:hover { background: var(--rogers-dark-red); }
+
+    .btn-secondary {
+      color: #111827;
+      background: #eef2f7;
+    }
+
+    .btn-secondary:hover { background: #e2e8f0; }
+
+    .btn-outline {
+      color: var(--rogers-dark-red);
+      background: #fff;
+      border: 1px solid rgba(225, 37, 27, 0.28);
+    }
+
+    .btn-outline:hover { background: var(--soft-red); }
+
+    .btn-danger {
+      color: white;
+      background: var(--danger);
+    }
+
+    .btn-ghost-danger {
+      color: var(--danger);
+      background: #fff5f5;
+      border: 1px solid #fecaca;
+    }
+
+    .btn-mini {
+      min-height: 32px;
+      padding: 6px 9px;
+      border-radius: 10px;
+      font-size: .85rem;
+    }
+
+    .lines-stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 38px 16px;
+      color: var(--muted);
+      border: 2px dashed #d7dce4;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, .55);
+    }
+
+    .empty-state strong {
+      display: block;
+      color: var(--ink);
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .line-card {
+      overflow: hidden;
+      animation: popIn .18s ease both;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .line-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(135deg, #ffffff 0%, #fff8f8 100%);
+    }
+
+    .line-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      align-items: center;
+    }
+
+    .line-title {
+      margin: 0;
+      font-size: 1.1rem;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: .78rem;
+      font-weight: 900;
+      color: var(--rogers-dark-red);
+      background: var(--soft-red);
+      border: 1px solid rgba(225, 37, 27, .16);
+    }
+
+    .line-subtitle {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .line-body {
+      padding: 10px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .section {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--line);
+      background: #f9fafb;
+    }
+
+    .section-header h3 {
+      margin: 0;
+      font-size: .92rem;
+      letter-spacing: -0.015em;
+    }
+
+    .section-body {
+      padding: 10px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+
+    .readout-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .readout {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 9px;
+      background: #fbfdff;
+    }
+
+    .readout span {
+      display: block;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 800;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .readout strong {
+      display: block;
+      font-size: 1.02rem;
+      letter-spacing: -0.025em;
+    }
+
+    .readout.important {
+      background: var(--soft-red);
+      border-color: rgba(225, 37, 27, .18);
+    }
+
+    .dynamic-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .dynamic-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(120px, .7fr) auto auto;
+      gap: 8px;
+      align-items: end;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fbfdff;
+    }
+
+    .dynamic-row.money-only {
+      grid-template-columns: minmax(120px, 1fr) auto;
+    }
+
+    .single-discount-row {
+      display: grid;
+      grid-template-columns: minmax(120px, 1fr) auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .device-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 150px;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .device-image-wrap {
+      min-height: 118px;
+      border: 1px dashed #d7dce4;
+      border-radius: 16px;
+      background: #f8fafc;
+      display: grid;
+      place-items: center;
+      padding: 12px;
+      overflow: hidden;
+    }
+
+    .device-image-wrap img {
+      max-width: 100%;
+      max-height: 96px;
+      object-fit: contain;
+      display: none;
+    }
+
+    .device-image-wrap .image-placeholder {
+      color: var(--muted);
+      text-align: center;
+      font-size: .84rem;
+      line-height: 1.35;
+    }
+
+    .radio-row, .check-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .radio-chip, .check-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .radio-chip input, .check-chip input {
+      width: auto;
+      accent-color: var(--rogers-red);
+    }
+
+    .status-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 9px;
+      border-radius: 12px;
+      background: #f9fafb;
+      border: 1px solid var(--line);
+    }
+
+    .status-box strong { font-size: 1rem; }
+
+    .summary-panel {
+      position: sticky;
+      top: 10px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .summary-card {
+      overflow: hidden;
+    }
+
+    .summary-header {
+      padding: 14px;
+      color: white;
+      background: linear-gradient(135deg, var(--rogers-red), #a91712);
+    }
+
+    .summary-header h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+    }
+
+    .summary-header p {
+      margin: 4px 0 0;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: .9rem;
+      line-height: 1.35;
+    }
+
+    .summary-body {
+      padding: 12px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .summary-metric {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 13px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .summary-metric span {
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 800;
+    }
+
+    .summary-metric strong {
+      font-size: 1.12rem;
+      letter-spacing: -0.035em;
+    }
+
+    .summary-metric.big {
+      background: var(--soft-red);
+      border-color: rgba(225, 37, 27, .2);
+    }
+
+    .summary-metric.big strong {
+      color: var(--rogers-dark-red);
+      font-size: 1.35rem;
+    }
+
+    .summary-lines {
+      display: grid;
+      gap: 8px;
+      margin-top: 3px;
+    }
+
+    .summary-line-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      border-radius: 11px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      font-size: .9rem;
+    }
+
+    .summary-line-row small {
+      display: block;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+
+    .line-header {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .line-header:focus-within {
+      outline: none;
+    }
+
+    .line-header-actions {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .collapse-icon {
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #6b7280;
+      border-radius: 999px;
+      font-size: 1.02rem;
+      line-height: 1;
+      transition: background .14s ease, color .14s ease, transform .14s ease;
+      pointer-events: none;
+    }
+
+    .collapse-icon::before {
+      content: "⌃";
+      display: inline-block;
+      transform: translateY(1px);
+    }
+
+    .line-card.collapsed .line-body {
+      display: none;
+    }
+
+    .line-card.collapsed .collapse-icon::before {
+      content: "⌄";
+      transform: translateY(-1px);
+    }
+
+    .line-header:hover .collapse-icon {
+      background: #f3f4f6;
+      color: var(--brand-secondary);
+    }
+
+    .line-card.collapsed .line-header {
+      border-bottom: 0;
+    }
+
+    .summary-section {
+      display: grid;
+      gap: 8px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .summary-section.account-highlight {
+      position: relative;
+      padding: 13px;
+      border: 2px solid rgba(225, 37, 27, .32);
+      background:
+        linear-gradient(180deg, rgba(255, 241, 240, .9), #fff 44%),
+        #fff;
+      box-shadow: 0 16px 36px rgba(225, 37, 27, .12);
+    }
+
+    .summary-section.account-highlight::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 5px;
+      border-radius: 0px;
+      background: var(--rogers-red);
+    }
+
+    .summary-section.account-highlight .summary-section-title {
+      color: var(--rogers-dark-red);
+      font-size: 1.02rem;
+      font-weight: 1000;
+    }
+
+    .summary-section.account-highlight .summary-row.total strong {
+      color: var(--rogers-dark-red);
+      font-size: 1.04rem;
+    }
+
+    .summary-section-title {
+      margin: 0;
+      font-size: .9rem;
+      letter-spacing: -0.01em;
+    }
+
+    .summary-subgroup {
+      display: grid;
+      gap: 5px;
+      padding: 8px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+    }
+
+    .summary-subgroup h4 {
+      margin: 0 0 2px;
+      font-size: .8rem;
+      color: #374151;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .summary-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: .84rem;
+      color: var(--muted);
+    }
+
+    .summary-row strong {
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .summary-row.total {
+      padding-top: 5px;
+      margin-top: 3px;
+      border-top: 1px solid var(--line);
+      color: var(--ink);
+      font-weight: 900;
+    }
+
+    .summary-row.discount strong {
+      color: var(--success);
+    }
+
+    .summary-line-detail {
+      display: grid;
+      gap: 7px;
+      padding: 9px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: #fff;
+    }
+
+    .summary-line-top strong {
+      display: block;
+      font-size: .92rem;
+      line-height: 1.25;
+    }
+
+    .summary-line-top small {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      line-height: 1.25;
+    }
+
+    .savings-banner {
+      padding: 12px;
+      border-radius: 14px;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+      font-weight: 950;
+      line-height: 1.3;
+    }
+
+    .cashback-banner {
+      display: grid;
+      gap: 4px;
+      padding: 12px;
+      border-radius: 14px;
+      background: var(--soft-red);
+      border: 1px solid rgba(225, 37, 27, .18);
+    }
+
+    .cashback-banner strong {
+      color: var(--rogers-dark-red);
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .new-account-total {
+      margin: 3px 0 0;
+      padding-top: 8px;
+      border-top: 1px solid rgba(225, 37, 27, .18);
+      font-weight: 950;
+      color: var(--ink);
+    }
+
+    .new-account-total span {
+      color: var(--rogers-dark-red);
+      white-space: nowrap;
+    }
+
+    .summary-divider {
+      height: 1px;
+      background: var(--line);
+      margin: 2px 0;
+    }
+
+    .normal-spending-wrap {
+      display: grid;
+      gap: 8px;
+    }
+
+    .disclaimer {
+      padding: 14px;
+      border-radius: 16px;
+      background: #fff8e8;
+      border: 1px solid #fed7aa;
+      color: #854d0e;
+      font-size: .86rem;
+      line-height: 1.4;
+    }
+
+
+
+    .print-report {
+      display: none;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%) translateY(12px);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 999;
+      padding: 12px 16px;
+      border-radius: 999px;
+      color: white;
+      background: #111827;
+      box-shadow: 0 12px 35px rgba(0,0,0,.22);
+      font-weight: 800;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .provider-fido .btn-primary {
+      color: #000;
+      background: #FFE600;
+      box-shadow: 0 10px 24px rgba(255, 230, 0, 0.28);
+    }
+
+    .provider-fido .btn-primary:hover { background: #f1d900; }
+
+    .provider-fido .btn-outline {
+      color: #006f6c;
+      border-color: rgba(0, 175, 171, .32);
+    }
+
+    .provider-fido .btn-outline:hover { background: rgba(0, 175, 171, .09); }
+
+    .provider-fido .summary-header {
+      color: #000;
+      background: linear-gradient(135deg, #FFE600, #00AFAB);
+    }
+
+    .provider-fido .summary-header p { color: rgba(0,0,0,.72); }
+
+    .provider-fido .summary-section.account-highlight {
+      border-color: rgba(0, 175, 171, .35);
+      background: linear-gradient(180deg, rgba(255, 251, 234, .96), #fff 48%), #fff;
+      box-shadow: 0 16px 36px rgba(0, 175, 171, .10);
+    }
+
+    .provider-fido .summary-section.account-highlight::before { background: #00AFAB; }
+    .provider-fido .summary-section.account-highlight .summary-section-title,
+    .provider-fido .summary-section.account-highlight .summary-row.total strong,
+    .provider-fido .cashback-banner strong,
+    .provider-fido .new-account-total span { color: #007f7b; }
+
+    .provider-fido .cashback-banner {
+      background: #fffbea;
+      border-color: rgba(255, 230, 0, .45);
+    }
+
+    .provider-fido .eyebrow {
+      color: #005f5c;
+      background: #fffbea;
+      border: 1px solid rgba(0, 175, 171, .16);
+    }
+
+
+
+    /* Rafraîchissement visuel v6 : moins d'encadrés imbriqués, plus de respiration. */
+    :root {
+      --shadow: 0 10px 28px rgba(15, 23, 42, 0.07);
+      --soft-panel: rgba(255, 255, 255, 0.72);
+      --hairline: #edf0f4;
+    }
+
+    .app-shell { padding-top: 18px; }
+
+    .hero {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .hero-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 430px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .hero-title-area {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      min-width: 0;
+    }
+
+    .brand-logo-mark {
+      width: 110px;
+      height: 62px;
+      object-fit: contain;
+      object-position: left center;
+      filter: none;
+      flex: 0 0 auto;
+    }
+
+    h1 { margin: 8px 0 5px; }
+    .subtitle { max-width: 780px; font-size: .98rem; line-height: 1.42; }
+    .eyebrow { padding: 5px 9px; font-size: .74rem; }
+
+    .hero-controls {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .provider-switch {
+      min-width: 0;
+      width: 100%;
+      justify-self: end;
+      align-self: start;
+      padding: 10px;
+      border-radius: 16px;
+      box-shadow: none;
+      background: var(--soft-panel);
+      backdrop-filter: blur(10px);
+    }
+
+    .provider-switch-title { margin-bottom: 6px; font-size: .72rem; }
+    .provider-options { gap: 7px; }
+
+    .provider-option {
+      min-height: 48px;
+      padding: 7px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.75);
+      box-shadow: none;
+    }
+
+    .provider-option.active {
+      border-color: color-mix(in srgb, var(--brand-accent) 48%, #d1d5db);
+      background: #fff;
+      box-shadow: inset 0 -3px 0 var(--brand-accent), 0 8px 20px rgba(15,23,42,.06);
+    }
+
+    .provider-option img {
+      width: 100%;
+      max-width: 104px;
+      height: 26px;
+      object-fit: contain;
+    }
+
+    .info-card,
+    .toolbar,
+    .summary-card,
+    .line-card {
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(226,232,240,.9);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(15,23,42,.055);
+    }
+
+    .info-card { padding: 12px; }
+    .info-card-header { padding: 0 0 9px; border-bottom: 1px solid var(--hairline); }
+    .info-card-body { padding: 10px 0 0; }
+    .store-coordinates { border: 0; background: #f6f8fb; border-radius: 10px; }
+
+    .toolbar {
+      padding: 10px;
+      position: sticky;
+      top: 8px;
+      border-left: 4px solid var(--brand-accent);
+    }
+
+    .line-card {
+      border-left: 4px solid var(--brand-accent);
+      overflow: hidden;
+    }
+
+    .line-header {
+      padding: 10px 12px;
+      background: #fff;
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .line-title { font-size: 1.02rem; }
+    .line-subtitle { font-size: .84rem; margin-top: 2px; }
+    .pill { padding: 3px 7px; font-size: .72rem; }
+    .collapse-icon { width: 26px; height: 26px; }
+
+    .line-body {
+      padding: 8px 10px 10px;
+      gap: 7px;
+      background: #fff;
+    }
+
+    .section {
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      overflow: visible;
+      padding-top: 4px;
+      border-top: 1px solid var(--hairline);
+    }
+
+    .line-body .section:first-child { border-top: 0; padding-top: 0; }
+
+    .section-header {
+      padding: 4px 0 7px;
+      border-bottom: 0;
+      background: transparent;
+    }
+
+    .section-header h3 {
+      font-size: .84rem;
+      color: var(--brand-secondary);
+      text-transform: uppercase;
+      letter-spacing: .045em;
+    }
+
+    .section-body {
+      padding: 0;
+      gap: 7px;
+    }
+
+    select, input, textarea {
+      border-radius: 10px;
+      padding: 7px 9px;
+      background: #fff;
+    }
+
+    label { margin-bottom: 3px; font-size: .75rem; }
+    .btn { min-height: 34px; border-radius: 10px; padding: 7px 10px; }
+    .btn-mini { min-height: 29px; padding: 5px 8px; font-size: .8rem; }
+
+    .grid-2, .grid-3, .grid-4, .readout-grid { gap: 7px; }
+
+    .readout {
+      border: 0;
+      border-radius: 11px;
+      padding: 8px;
+      background: #f7f9fc;
+    }
+
+    .readout.important {
+      background: color-mix(in srgb, var(--soft-red) 72%, #fff);
+      border-left: 3px solid var(--brand-accent);
+    }
+
+    .readout span { font-size: .69rem; margin-bottom: 3px; }
+    .readout strong { font-size: .94rem; }
+
+    .dynamic-list { gap: 6px; }
+    .dynamic-row {
+      padding: 6px;
+      border: 0;
+      border-left: 3px solid #e5e7eb;
+      border-radius: 11px;
+      background: #f8fafc;
+      gap: 6px;
+    }
+
+    .device-layout { grid-template-columns: minmax(0, 1fr) 128px; gap: 9px; }
+    .device-image-wrap { min-height: 96px; border: 0; border-radius: 13px; background: #f6f8fb; padding: 9px; }
+    .device-image-wrap img { max-height: 78px; }
+    .radio-row, .check-row { gap: 8px; }
+    .radio-chip, .check-chip { padding: 6px 9px; }
+    .status-box { padding: 7px 8px; border: 0; background: #f7f9fc; }
+
+    .summary-panel { gap: 10px; }
+    .summary-header { padding: 13px; }
+    .summary-body { padding: 10px; gap: 9px; }
+    .summary-section { padding: 0 0 9px; border: 0; border-bottom: 1px solid var(--hairline); border-radius: 0; background: transparent; }
+    .summary-section:last-child { border-bottom: 0; padding-bottom: 0; }
+    .summary-section.account-highlight { border: 0; border-radius: 0px 5px 5px 0px; padding: 12px; background: color-mix(in srgb, var(--soft-red) 68%, #fff); box-shadow: none; }
+    .summary-section.account-highlight::before { width: 4px; }
+    .summary-subgroup, .summary-line-detail { border: 1px solid #e8e9eb; background: #f8fafc; border-radius: 11px; }
+    .summary-line-detail { padding: 8px; }
+    .summary-row { font-size: .81rem; }
+    .summary-section-title { font-size: .84rem; }
+    .savings-banner { padding: 10px; border: 0; border-left: 4px solid #10b981; border-radius: 12px; }
+
+    .mastercard-section { gap: 8px; }
+    .mastercard-media { display: grid; gap: 8px; }
+    .rogers-bank-logo { width: min(210px, 100%); height: auto; object-fit: contain; padding-left: 20px; margin-top: 10px;}
+    .rogers-mastercard-promo { width: 100%; border-radius: 12px; display: block; border: 0px solid var(--hairline); }
+    .cashback-banner { padding: 10px; border: 0; border-left: 4px solid #DA291C; border-radius: 12px; }
+
+    .provider-fido .toolbar,
+    .provider-fido .line-card { border-left-color: #00AFAB; }
+    .provider-fido .provider-option.active { box-shadow: inset 0 -3px 0 #00AFAB, 0 8px 20px rgba(15,23,42,.06); }
+
+    .hidden { display: none !important; }
+
+
+
+    /* Menu combiné Ajouter une ligne */
+    .toolbar {
+      grid-template-columns: 1fr;
+      align-items: start;
+      gap: 10px;
+      overflow: visible;
+    }
+
+    .add-controls {
+      display: block;
+    }
+
+    .add-line-combo {
+      position: relative;
+      max-width: 100%;
+      border-radius: 28px;
+      overflow: hidden;
+      color: #fff;
+      background: var(--add-line-surface);
+      border: 0;
+      box-shadow: 0 14px 28px rgba(15, 23, 42, .10);
+    }
+
+    .add-line-trigger {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 56px 1fr 44px;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 24px;
+      border: 0;
+      background: var(--add-line-top);
+      color: #fff;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--brand-font);
+      font-size: clamp(1.55rem, 1.12rem + 1.9vw, 3rem);
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+
+    .add-line-trigger span {
+      font-weight: 300;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .provider-fido .add-line-trigger span { font-weight: 700; }
+
+    .trigger-icon {
+      display: block;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .trigger-icon-plus {
+      width: 40px;
+      height: 40px;
+      justify-self: start;
+    }
+
+    .trigger-icon-chevron {
+      width: 24px;
+      height: 24px;
+      justify-self: end;
+      opacity: .9;
+      transition: transform .18s ease;
+    }
+
+    .add-line-combo.open .trigger-icon-chevron {
+      transform: rotate(180deg);
+    }
+
+    .add-line-dropdown {
+      display: grid;
+      gap: 0;
+      background: var(--add-line-surface);
+      padding: 18px 22px 20px;
+    }
+
+    .add-line-option {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      min-height: 74px;
+      padding: 6px 2px;
+      border: 0;
+      border-bottom: 2px solid rgba(255,255,255,.8);
+      background: transparent;
+      color: #fff;
+      text-align: left;
+      cursor: pointer;
+      font-family: var(--brand-font);
+      font-size: clamp(1.15rem, .92rem + 1.5vw, 2rem);
+      line-height: 1.12;
+      letter-spacing: -.03em;
+    }
+
+    .add-line-option:last-child {
+      border-bottom: 0;
+      min-height: 66px;
+      padding-bottom: 10px;
+    }
+
+    .add-line-option span { font-weight: 300; }
+    .provider-fido .add-line-option span { font-weight: 400; }
+
+    .add-line-option img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      justify-self: center;
+    }
+
+    .add-line-option:hover,
+    .add-line-option:focus-visible {
+      background: rgba(255,255,255,.08);
+      outline: none;
+    }
+
+    .add-line-combo:not(.open) .add-line-dropdown { display: none; }
+
+    .provider-rogers {
+      --add-line-top: #e3261c;
+      --add-line-surface: #ff655c;
+    }
+
+    .provider-fido {
+      --add-line-top: #16adad;
+      --add-line-surface: #58c8c8;
+    }
+
+    @media (max-width: 760px) {
+      .add-line-trigger {
+        grid-template-columns: 38px 1fr 30px;
+        gap: 12px;
+        padding: 16px 18px;
+      }
+      .trigger-icon-plus { width: 28px; height: 28px; }
+      .trigger-icon-chevron { width: 18px; height: 18px; }
+      .add-line-dropdown { padding: 12px 16px 14px; }
+      .add-line-option {
+        grid-template-columns: 40px 1fr;
+        gap: 14px;
+        min-height: 58px;
+        font-size: clamp(1.06rem, .86rem + 1.2vw, 1.55rem);
+      }
+      .add-line-option img { width: 28px; height: 28px; }
+    }
+
+
+
+    /* Ajustements v8 : bouton d'ajout compact et alignement de l'en-tête */
+    .hero {
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .hero-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 430px;
+      gap: 18px;
+      align-items: start;
+      width: 100%;
+    }
+
+    .provider-switch {
+      width: 100%;
+      max-width: 430px;
+      justify-self: end;
+      align-self: start;
+    }
+
+    .hero-controls {
+      margin-top: 16px;
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .toolbar {
+      display: block;
+      position: relative;
+      top: auto;
+      z-index: 40;
+      margin: 14px 0 18px;
+      padding: 0 !important;
+      border: 0 !important;
+      border-left: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      backdrop-filter: none;
+      overflow: visible;
+    }
+
+    .toolbar .small-note {
+      margin-top: 6px;
+      padding-left: 3px;
+      font-size: .78rem;
+      line-height: 1.25;
+    }
+
+    .add-controls { display: block; }
+
+    .add-line-combo {
+      position: relative;
+      display: inline-block;
+      width: auto;
+      max-width: min(100%, 520px);
+      border-radius: 0;
+      overflow: visible;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .add-line-trigger {
+      width: auto;
+      min-width: 230px;
+      display: inline-grid;
+      grid-template-columns: 18px auto 16px;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--add-line-top);
+      color: #fff;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--brand-font);
+      font-size: 1rem;
+      line-height: 1;
+      letter-spacing: -.01em;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, .10);
+    }
+
+    .add-line-trigger span {
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .provider-rogers .add-line-trigger span { font-weight: 800; }
+    .provider-fido .add-line-trigger span { font-weight: 700; }
+
+    .trigger-icon-plus {
+      width: 17px;
+      height: 17px;
+      justify-self: center;
+    }
+
+    .trigger-icon-chevron {
+      width: 13px;
+      height: 13px;
+      justify-self: center;
+      opacity: .92;
+      transition: transform .18s ease;
+    }
+
+    .add-line-combo.open .trigger-icon-chevron { transform: rotate(180deg); }
+
+    .add-line-dropdown {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      z-index: 90;
+      width: min(430px, calc(100vw - 40px));
+      display: grid;
+      gap: 0;
+      padding: 8px 14px;
+      border-radius: 14px;
+      background: var(--add-line-surface);
+      color: #fff;
+      box-shadow: 0 16px 32px rgba(15, 23, 42, .16);
+      overflow: hidden;
+    }
+
+    .add-line-option {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      min-height: 46px;
+      padding: 5px 0;
+      border: 0;
+      border-bottom: 1px solid rgba(255,255,255,.78);
+      background: transparent;
+      color: #fff;
+      text-align: left;
+      cursor: pointer;
+      font-family: var(--brand-font);
+      font-size: 1.08rem;
+      line-height: 1.08;
+      letter-spacing: -.015em;
+    }
+
+    .add-line-option:last-child {
+      border-bottom: 0;
+      min-height: 44px;
+      padding-bottom: 4px;
+    }
+
+    .add-line-option span { font-weight: 400; }
+    .provider-rogers .add-line-option span { font-weight: 300; }
+    .provider-fido .add-line-option span { font-weight: 400; }
+
+    .add-line-option img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      justify-self: center;
+    }
+
+    .add-line-option:hover,
+    .add-line-option:focus-visible {
+      background: rgba(255,255,255,.10);
+      outline: none;
+    }
+
+    .add-line-combo:not(.open) .add-line-dropdown { display: none; }
+
+    @media (max-width: 1120px) {
+      .hero-top { grid-template-columns: 1fr; }
+      .provider-switch { max-width: none; justify-self: stretch; }
+      .hero-controls { justify-content: flex-start; }
+    }
+
+    @media (max-width: 760px) {
+      .hero-controls .btn { flex: 1; }
+      .add-line-trigger {
+        min-width: min(100%, 230px);
+        grid-template-columns: 17px auto 15px;
+        padding: 9px 11px;
+        font-size: .98rem;
+      }
+      .add-line-dropdown { width: min(390px, calc(100vw - 28px)); }
+      .add-line-option {
+        grid-template-columns: 30px 1fr;
+        min-height: 43px;
+        font-size: 1rem;
+      }
+      .add-line-option img { width: 22px; height: 22px; }
+    }
+
+
+
+    /* Ajustements esthétiques v12 */
+    .hero-title-area {
+      align-items: center;
+      gap: 18px;
+    }
+
+    .hero-title-copy {
+      display: grid;
+      gap: 8px;
+      align-content: center;
+    }
+
+    .brand-logo-mark {
+      width: 74px;
+      height: 74px;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .hero-title-copy h1 {
+      margin: 0;
+      font-size: clamp(2rem, 3.2vw, 3.4rem);
+      line-height: 1.02;
+      letter-spacing: -.045em;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: min(360px, 100%);
+      min-height: 38px;
+      padding: 7px 18px;
+      border: 2px solid var(--brand-accent);
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--soft-red) 76%, #fff);
+      color: var(--brand-secondary);
+      font-weight: 900;
+      text-align: center;
+      letter-spacing: -.01em;
+    }
+
+    .provider-fido .brand-badge {
+      background: rgba(0, 175, 171, .12);
+      border-color: #007f7b;
+      color: #005f5c;
+    }
+
+    .hero-controls {
+      width: 430px;
+      margin-left: auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .hero-controls .btn {
+      width: 100%;
+      min-width: 0;
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    .btn i,
+    .btn [class^="iconoir-"] {
+      font-size: 1.05em;
+      line-height: 1;
+    }
+
+    .store-lookup-row {
+      grid-template-columns: 150px 150px;
+      justify-content: start;
+      align-items: end;
+    }
+
+    #storeNumberInput {
+      max-width: 150px;
+    }
+
+    .store-lookup-btn {
+      width: 150px;
+      min-width: 150px;
+      box-shadow: none;
+    }
+
+    .store-lookup-btn i {
+      font-size: 1.25rem;
+    }
+
+    .line-header-actions {
+      flex-wrap: nowrap;
+      gap: 7px;
+    }
+
+    .btn-icon {
+      width: 34px;
+      height: 34px;
+      min-width: 34px;
+      min-height: 34px;
+      padding: 0;
+      border-radius: 10px;
+      box-shadow: none;
+    }
+
+    .dynamic-row .btn-icon,
+    .single-discount-row .btn-icon {
+      width: 35px;
+      height: 35px;
+      min-width: 35px;
+      min-height: 35px;
+      align-self: end;
+    }
+
+    .btn-icon-danger,
+    .btn-red {
+      color: #fff;
+      background: #dc2626;
+      border: 1px solid #991b1b;
+    }
+
+    .btn-icon-danger:hover,
+    .btn-red:hover {
+      background: #b91c1c;
+    }
+
+    .btn-icon-blue,
+    .btn-blue {
+      color: #fff;
+      background: #2563eb;
+      border: 1px solid #1d4ed8;
+    }
+
+    .btn-icon-blue:hover,
+    .btn-blue:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-icon-success,
+    .btn-success {
+      color: #fff;
+      background: #16a34a;
+      border: 1px solid #15803d;
+    }
+
+    .btn-icon-success:hover,
+    .btn-success:hover {
+      background: #15803d;
+    }
+
+    .btn-success i,
+    .btn-blue i,
+    .btn-red i,
+    .btn-icon i {
+      color: #fff;
+    }
+
+    .collapse-icon {
+      width: 28px;
+      height: 34px;
+      color: #6b7280;
+      border-radius: 0;
+      background: transparent !important;
+    }
+
+    .collapse-icon::before { content: none !important; }
+
+    .collapse-icon i {
+      display: block;
+      font-size: 1.1rem;
+      transition: transform .14s ease, color .14s ease;
+    }
+
+    .line-card.collapsed .collapse-icon i {
+      transform: rotate(180deg);
+    }
+
+    .line-header:hover .collapse-icon {
+      background: transparent !important;
+      color: var(--brand-secondary);
+    }
+
+    @media (max-width: 1120px) {
+      .hero-top { grid-template-columns: 1fr; }
+      .provider-switch,
+      .hero-controls { width: 100%; max-width: 430px; margin-left: 0; justify-self: start; }
+    }
+
+    @media (max-width: 760px) {
+      .hero-controls { max-width: none; grid-template-columns: 1fr; }
+      .store-lookup-row { grid-template-columns: 150px 150px; }
+      .line-header-actions { justify-content: flex-start; }
+      .line-header .btn { width: 34px; }
+    }
+
+    @media print {
+      @page { size: letter; margin: 0.32in; }
+
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+      html, body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background: white !important;
+        color: #111827;
+        font-family: var(--brand-font) !important;
+      }
+
+      .app-shell, .toast, datalist { display: none !important; }
+
+      .print-report {
+        display: block !important;
+        max-width: 100%;
+        font-size: 7.9pt;
+        line-height: 1.14;
+      }
+
+      .print-page {
+        display: grid;
+        gap: 5px;
+      }
+
+      .print-topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid var(--brand-accent);
+      }
+
+      .print-heading-wrap { display: flex; gap: 9px; align-items: center; min-width: 0; }
+      .print-logo { width: 92px; height: 38px; object-fit: contain; object-position: left center; }
+
+      .print-brand {
+        color: var(--brand-secondary);
+        font-weight: 900;
+        font-size: 7pt;
+        text-transform: uppercase;
+        letter-spacing: .045em;
+      }
+
+      .print-title {
+        margin: 1px 0 0;
+        font-size: 15pt;
+        line-height: 1;
+        letter-spacing: -.035em;
+      }
+
+      .print-meta { text-align: right; color: #4b5563; font-size: 7pt; white-space: nowrap; }
+
+      .print-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 5px; }
+
+      .print-card {
+        border: 1px solid #d9dde5;
+        border-radius: 7px;
+        overflow: hidden;
+        break-inside: avoid;
+        background: #fff;
+      }
+
+      .print-card-title {
+        margin: 0;
+        padding: 4px 6px;
+        background: #f3f4f6;
+        border-bottom: 1px solid #d9dde5;
+        font-size: 7.8pt;
+        font-weight: 900;
+      }
+
+      .print-card-title.important {
+        color: #fff;
+        background: var(--brand-accent);
+        border-bottom-color: var(--brand-accent);
+      }
+
+      .print-card-body { padding: 5px 6px; }
+      .print-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+
+      .print-kpi {
+        padding: 4px 5px;
+        border: 1px solid #d9dde5;
+        border-radius: 6px;
+        background: #f9fafb;
+      }
+
+      .print-kpi span, .print-contact-item span {
+        display: block;
+        color: #4b5563;
+        font-size: 6.3pt;
+        text-transform: uppercase;
+        letter-spacing: .035em;
+        font-weight: 800;
+      }
+
+      .print-kpi strong {
+        display: block;
+        margin-top: 1px;
+        font-size: 9.7pt;
+        line-height: 1;
+        letter-spacing: -.025em;
+      }
+
+      .print-kpi.highlight { border-color: var(--brand-accent); background: color-mix(in srgb, var(--soft-red) 70%, #fff); }
+      .print-kpi.highlight strong { color: var(--brand-secondary); font-size: 10.6pt; }
+
+      .print-mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+      .print-note { margin: 0; color: #4b5563; font-size: 6.9pt; }
+
+      .print-contact-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
+      .print-contact-item { padding: 4px 5px; border: 1px solid #d9dde5; border-radius: 6px; background: #f9fafb; }
+      .print-contact-item strong { display: block; margin-top: 1px; font-size: 7.8pt; line-height: 1.1; }
+
+      .print-mastercard-layout { display: grid; grid-template-columns: 112px 1fr; gap: 6px; align-items: center; }
+      .print-bank-logo { width: 100%; max-height: 30px; object-fit: contain; object-position: left center; }
+      .print-mastercard-promo { width: 100%; max-height: 70px; object-fit: contain; border-radius: 6px; }
+
+      .print-lines-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 6.65pt; }
+      .print-lines-table th, .print-lines-table td { border: 1px solid #d9dde5; padding: 2.5px 3.5px; vertical-align: top; }
+      .print-lines-table th { background: #f3f4f6; font-weight: 900; text-align: left; }
+      .print-lines-table .money { text-align: right; white-space: nowrap; }
+      .print-line-name { font-weight: 900; color: #111827; }
+      .print-muted { color: #4b5563; }
+      .print-detail-layout { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 5px; align-items: start; }
+      .print-detail-media { width: 34px; min-height: 34px; display: flex; align-items: flex-start; justify-content: center; }
+      .print-device-thumb { width: 32px; height: 32px; object-fit: contain; border-radius: 5px; background: #f8fafc; border: 1px solid #e5e7eb; padding: 2px; }
+      .print-detail-items { display: grid; gap: 2px; }
+      .print-detail-item { display: grid; grid-template-columns: 58px minmax(0, 1fr); gap: 4px; align-items: baseline; padding: 1.5px 3px; border-radius: 4px; background: #f9fafb; }
+      .print-detail-item span { color: #4b5563; font-size: 5.7pt; text-transform: uppercase; letter-spacing: .035em; font-weight: 900; }
+      .print-detail-item strong { color: #111827; font-weight: 650; line-height: 1.15; }
+      .print-legal { margin: 3px 0 0; padding-top: 4px; border-top: 1px solid #d9dde5; color: #4b5563; font-size: 6.45pt; }
+      .print-empty { padding: 7px; color: #4b5563; border: 1px dashed #d1d5db; border-radius: 8px; }
+
+      .provider-fido .print-card-title.important { color: #000; background: #FFE600; border-bottom-color: #00AFAB; }
+      .provider-fido .print-topbar { border-bottom-color: #00AFAB; }
+      .provider-fido .print-kpi.highlight { border-color: #00AFAB; background: #fffbea; }
+      .provider-fido .print-kpi.highlight strong { color: #007f7b; }
+    }
+
+    @media (max-width: 1120px) {
+      .layout { grid-template-columns: 1fr; }
+      .summary-panel { position: static; }
+      .toolbar { position: static; }
+    }
+
+    @media (max-width: 760px) {
+      .app-shell { width: min(100% - 18px, 1480px); padding-top: 14px; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-actions { justify-content: stretch; }
+      .provider-switch { min-width: 0; width: 100%; }
+      .store-lookup-row { grid-template-columns: 1fr; }
+      .hero-actions .btn { flex: 1; }
+      .toolbar { grid-template-columns: 1fr; }
+      .add-controls { grid-template-columns: 1fr; }
+      .grid-2, .grid-3, .grid-4, .readout-grid, .device-layout, .info-card-body { grid-template-columns: 1fr; }
+      .dynamic-row { grid-template-columns: 1fr; }
+      .dynamic-row .btn { width: 100%; }
+      .line-header { grid-template-columns: 1fr; }
+      .line-header .btn { width: 100%; }
+    }
+  
+
+    /* Ajustements v9 */
+    .store-coordinates {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px 10px;
+    }
+
+    .store-coordinates strong,
+    .store-coordinates .store-coordinates-inline strong {
+      display: inline;
+      margin-bottom: 0;
+      white-space: nowrap;
+    }
+
+    .store-coordinates-inline {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px 10px;
+      line-height: 1.25;
+    }
+
+    .store-coordinates-inline span {
+      white-space: nowrap;
+    }
+
+    .store-coordinates-inline span::before {
+      content: "•";
+      margin-right: 10px;
+      color: #9ca3af;
+    }
+
+    @media print {
+      .print-contact-grid {
+        grid-template-columns: .75fr .75fr minmax(0, 2.1fr);
+        align-items: stretch;
+      }
+
+      .print-store-item {
+        grid-column: auto !important;
+      }
+
+      .print-store-horizontal {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 2px 8px;
+        margin-top: 1px;
+        line-height: 1.08;
+      }
+
+      .print-store-horizontal strong {
+        display: inline;
+        margin-top: 0;
+        white-space: nowrap;
+        font-size: 7.6pt;
+      }
+
+      .print-store-horizontal span {
+        white-space: nowrap;
+        font-size: 7.1pt;
+        color: #111827;
+      }
+
+      .print-store-horizontal span::before {
+        content: "•";
+        margin-right: 7px;
+        color: #9ca3af;
+      }
+
+      .account-print-kpis {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-rows: repeat(2, minmax(28px, auto));
+        align-items: stretch;
+      }
+
+      .kpi-monthly-subtotal { grid-column: 1; grid-row: 1; }
+      .kpi-monthly-taxes { grid-column: 2; grid-row: 1; }
+      .kpi-monthly-discounts { grid-column: 3; grid-row: 1; }
+      .kpi-onetime-subtotal { grid-column: 1; grid-row: 2; }
+      .kpi-onetime-taxes { grid-column: 2; grid-row: 2; }
+      .kpi-onetime-total { grid-column: 3; grid-row: 2; }
+      .monthly-total-big {
+        grid-column: 4;
+        grid-row: 1 / span 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .monthly-total-big strong {
+        font-size: 13.2pt !important;
+      }
+
+      .print-mastercard-card {
+        break-inside: avoid;
+      }
+
+      .print-mastercard-layout {
+        grid-template-columns: 112px minmax(0, 1fr) 180px;
+        gap: 6px;
+      }
+
+      .print-mastercard-kpis {
+        grid-template-columns: 1fr;
+        align-self: stretch;
+      }
+
+      .print-mastercard-kpis .print-kpi {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .print-legal {
+        margin-top: 4px;
+        font-size: 6.2pt;
+        line-height: 1.18;
+      }
+    }
+
+
+    /* Ajustements v11 - impression : frais uniques vs acomptes, coordonnées 2x2, détails plus lisibles */
+    @media print {
+      .print-store-table {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2px 10px;
+        margin-top: 2px;
+        line-height: 1.08;
+      }
+
+      .print-store-cell {
+        font-size: 7.2pt;
+        color: #111827;
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+
+      .print-store-cell.store-name {
+        font-weight: 900;
+      }
+
+      .account-print-kpis {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-rows: repeat(2, minmax(28px, auto));
+        align-items: stretch;
+      }
+
+      .kpi-monthly-subtotal { grid-column: 1; grid-row: 1; }
+      .kpi-monthly-taxes { grid-column: 2; grid-row: 1; }
+      .kpi-monthly-discounts { grid-column: 3; grid-row: 1; }
+      .kpi-activation-total { grid-column: 1; grid-row: 2; }
+      .kpi-downpayment-subtotal { grid-column: 2; grid-row: 2; }
+      .kpi-downpayment-total { grid-column: 3; grid-row: 2; }
+      .monthly-total-big {
+        grid-column: 4;
+        grid-row: 1 / span 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .monthly-total-big strong { font-size: 13.2pt !important; }
+
+      .print-detail-layout {
+        grid-template-columns: 36px minmax(0, 1fr);
+      }
+
+      .print-detail-item {
+        grid-template-columns: 56px minmax(0, 1fr);
+        align-items: start;
+        padding: 2px 3px;
+      }
+
+      .print-detail-lines {
+        display: grid;
+        gap: 1px;
+        line-height: 1.15;
+      }
+
+      .print-detail-line {
+        display: block;
+        font-style: normal;
+      }
+
+      .print-detail-line + .print-detail-line {
+        padding-top: 1px;
+        border-top: 1px solid #eef0f3;
+      }
+
+      .print-lines-table { font-size: 6.35pt; }
+      .print-lines-table th, .print-lines-table td { padding: 2.25px 3px; }
+      .print-lines-table .money strong { font-size: 6.8pt; }
+      .print-money-note { color: #4b5563; font-size: 5.8pt; line-height: 1.05; }
+    }
+
+
+    /* Ajustements v13 - changements esthétiques V2 */
+    .hero-controls .btn {
+      gap: clamp(3px, .45vw, 6px);
+      font-size: clamp(.72rem, .82vw, .93rem);
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .hero-controls .btn i,
+    .hero-controls .btn [class^="iconoir-"] {
+      flex: 0 0 auto;
+      font-size: clamp(.86rem, .95vw, 1.05rem);
+    }
+
+    .hero-controls .btn span {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (max-width: 1180px) and (min-width: 761px) {
+      .hero-controls .btn { font-size: clamp(.66rem, .74vw, .82rem); padding-left: 6px; padding-right: 6px; }
+      .hero-controls .btn i { font-size: .92rem; }
+    }
+
+    @media print {
+      .print-topbar {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+      }
+
+      .print-heading-compact {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+
+      .print-heading-compact .print-title {
+        margin: 0;
+      }
+
+      .print-contact-grid {
+        grid-template-columns: .72fr minmax(0, 2.2fr) !important;
+        gap: 6px;
+        align-items: start;
+      }
+
+      .print-contact-item {
+        border: 0 !important;
+        background: transparent !important;
+        padding: 2px 1px !important;
+      }
+
+      .print-contact-item strong {
+        font-size: 8pt;
+      }
+
+      .print-store-item { grid-column: auto !important; }
+
+      .account-summary-v13 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) 1.08fr;
+        gap: 4px;
+        align-items: stretch;
+      }
+
+      .print-summary-group {
+        display: grid;
+        gap: 4px;
+      }
+
+      .print-summary-group h3 {
+        margin: 0;
+        padding: 2px 4px;
+        color: #4b5563;
+        font-size: 6.4pt;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        font-weight: 900;
+      }
+
+      .account-summary-v13 .monthly-total-big {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 100%;
+      }
+
+      .account-summary-v13 .monthly-total-big strong {
+        font-size: 13.2pt !important;
+      }
+    }
+
+    #printBtn {
+        border: 1px solid silver;
+      }
+
+    #printBtn, #copySummaryBtn, #resetBtn {
+        font-size: 14px;
+      }
+
+  </style>
+</head>
+<body class="provider-rogers">
+  <div class="app-shell">
+    <header class="hero">
+      <div class="hero-top">
+        <div class="hero-title-area">
+          <img class="brand-logo-mark" id="activeProviderLogo" src="https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/brand/rogers_mobius_red.png" alt="Icône Rogers">
+          <div class="hero-title-copy">
+            <h1>Calculateur de total du compte</h1>
+            <span class="brand-badge" id="providerEyebrow">Rogers - Estimation multi-service</span>
+          </div>
+        </div>
+
+        <div class="provider-switch" aria-label="Sélectionner le fournisseur">
+          <p class="provider-switch-title">Sélectionner le fournisseur</p>
+          <div class="provider-options">
+            <button class="provider-option active" type="button" data-provider="rogers" aria-pressed="true" aria-label="Rogers">
+              <img src="https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/brand/rogers_red.png" alt="Rogers">
+            </button>
+            <button class="provider-option" type="button" data-provider="fido" aria-pressed="false" aria-label="Fido">
+              <img src="https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/brand/fido_black-yellow.png" alt="Fido">
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-controls">
+        <button class="btn btn-secondary" id="printBtn" type="button"><i class="iconoir-printer"></i><span>Imprimer</span></button>
+        <button class="btn btn-outline" id="copySummaryBtn" type="button"><i class="iconoir-copy"></i><span>Copier</span></button>
+        <button class="btn btn-danger" id="resetBtn" type="button"><i class="iconoir-erase"></i><span>Réinitialiser</span></button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section>
+        <div class="info-card" id="contactInfoCard">
+          <div class="info-card-header">
+            <h2>Informations et coordonnées</h2>
+
+          </div>
+          <div class="info-card-body">
+            <div>
+              <label for="storeNumberInput">Numéro de magasin</label>
+              <div class="store-lookup-row">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" id="storeNumberInput" placeholder="Ex. 5211" autocomplete="off">
+                <button class="btn btn-primary store-lookup-btn" type="button" id="storeLookupBtn" aria-label="Afficher les coordonnées" title="Afficher les coordonnées"><i class="iconoir-long-arrow-down-left"></i></button>
+              </div>
+              <div class="store-coordinates hidden" id="storeCoordinates" aria-live="polite"></div>
+            </div>
+            <div>
+              <label for="advisorInput">Votre conseiller(ère) :</label>
+              <input type="text" id="advisorInput" placeholder="Nom du conseiller ou de la conseillère">
+
+            </div>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="add-controls">
+            <div class="add-line-combo" id="addLineMenu">
+              <button class="add-line-trigger" id="addLineToggle" type="button" aria-expanded="false" aria-controls="addLineDropdown">
+                <img class="trigger-icon trigger-icon-plus" src="https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/fr/total-du-compte/media/icone-ajout-de-ligne_plus.png" alt="">
+                <span>Ajouter une ligne</span>
+                <img class="trigger-icon trigger-icon-chevron" src="https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/fr/total-du-compte/media/icone-ajout-de-ligne_ouvrir.png" alt="">
+              </button>
+              <div class="add-line-dropdown" id="addLineDropdown" hidden>
+                <button class="add-line-option" type="button" data-line-option="mobile">
+                  <img src="https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/fr/total-du-compte/media/icone-ajout-de-ligne_mobile.png" alt="">
+                  <span>Ligne mobile</span>
+                </button>
+                <button class="add-line-option" type="button" data-line-option="watch">
+                  <img src="https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/fr/total-du-compte/media/icone-ajout-de-ligne_montre.png" alt="">
+                  <span>Montre intelligente</span>
+                </button>
+                <button class="add-line-option" type="button" data-line-option="tablet">
+                  <img src="https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/fr/total-du-compte/media/icone-ajout-de-ligne_tablette.png" alt="">
+                  <span>Tablette</span>
+                </button>
+                <button class="add-line-option" type="button" data-line-option="homePhone">
+                  <img src="https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/fr/total-du-compte/media/icone-ajout-de-ligne_telephonie-residentielle.png" alt="">
+                  <span>Téléphonie résidentielle</span>
+                </button>
+                <button class="add-line-option" type="button" data-line-option="home5g">
+                  <img src="https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/fr/total-du-compte/media/icone-ajout-de-ligne_internet-5g.png" alt="">
+                  <span>Internet résidentiel 5G</span>
+                </button>
+                <button class="add-line-option" type="button" data-line-option="other">
+                  <img src="https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/fr/total-du-compte/media/icone-ajout-de-ligne_autre.png" alt="">
+                  <span>Autre</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="small-note" id="jsonStatus"  style="display: none">Chargement des listes JSON...</div>
+        </div>
+
+        <div id="linesContainer" class="lines-stack">
+          <div class="empty-state" id="emptyState">
+            <strong>Aucune ligne ajoutée</strong>
+            Cliquez sur « Ajouter une ligne », puis choisissez le type de service à ajouter.
+          </div>
+        </div>
+      </section>
+
+      <aside class="summary-panel">
+        <div class="summary-card">
+          <div class="summary-header">
+            <h2>Résumé du compte</h2>
+          </div>
+          <div class="summary-body">
+            <section class="summary-section">
+              <h3 class="summary-section-title">Résumé par ligne</h3>
+              <div class="summary-lines" id="summaryLines"></div>
+            </section>
+
+            <section class="summary-section account-highlight">
+              <h3 class="summary-section-title">Résumé du compte</h3>
+              <div class="summary-subgroup">
+                <h4>Résumé mensuel</h4>
+                <div class="summary-row"><span>Sous-total</span><strong id="accountMonthlySubtotal">0,00 $</strong></div>
+                <div class="summary-row"><span>Taxes</span><strong id="accountMonthlyTaxes">0,00 $</strong></div>
+                <div class="summary-row total"><span>Total</span><strong id="accountMonthlyTotal">0,00 $</strong></div>
+              </div>
+              <div class="summary-subgroup">
+                <h4>Frais uniques</h4>
+                <div class="summary-row"><span>Sous-total</span><strong id="accountOneTimeSubtotal">0,00 $</strong></div>
+                <div class="summary-row"><span>Taxes</span><strong id="accountOneTimeTaxes">0,00 $</strong></div>
+                <div class="summary-row total"><span>Total</span><strong id="accountOneTimeTotal">0,00 $</strong></div>
+              </div>
+              <div class="summary-row"><span>Nombre de lignes</span><strong id="accountLineCount">0</strong></div>
+            </section>
+
+            <section class="summary-section">
+
+              <div class="savings-banner" id="monthlySavingsText">Vous économisez 0,00 $ par mois avec Rogers</div>
+            </section>
+
+            <section class="summary-section mastercard-section">
+              <h3 class="summary-section-title">Rogers Mastercard</h3>
+              <div class="mastercard-media">
+                <img class="rogers-bank-logo" src="https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/brand/Banque-Rogers_horizontal_logo_red.png" alt="Banque Rogers">
+                <img class="rogers-mastercard-promo" src="https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/Rogers-Mastercard_Promo-FR.png" alt="Promotion Rogers Mastercard">
+              </div>
+              <div class="cashback-banner">
+                <strong>Vous pourriez obtenir <span id="rogersCashbackAmount">0,00 $</span> en remises en argent avec cette facture</strong>
+                <p class="new-account-total">Nouveau total du compte : <span id="rogersNewAccountTotal">0,00 $</span></p>
+              </div>
+              <button class="btn btn-outline btn-mini" type="button" id="addNormalSpendingBtn">Ajouter des dépenses normales</button>
+              <div class="normal-spending-wrap hidden" id="normalSpendingWrap">
+                <label for="normalSpendingInput">Estimation des dépenses normales mensuelles</label>
+                <input type="text" inputmode="decimal" data-money id="normalSpendingInput" placeholder="0,00 $">
+                <div class="small-note">Ajoute une remise estimée de 2 % sur ce montant, en plus du 3 % appliqué au total mensuel du compte.</div>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="disclaimer">
+          Cet outil est fourni à titre informatif seulement et ne constitue pas une offre, une promesse de prix, ni un engagement contractuel de la part de Rogers Communications Canada ou de ses
+représentants. Les prix, offres et détails des services demeurent sujets à modification sans préavis, et les montants indiqués peuvent varier en fonction des politiques officielles de Rogers Communications
+Canada.
+Les logos et marques affichés dans ce document sont la propriété exclusive de Rogers Communications Canada.
+        </div>
+      </aside>
+    </main>
+  </div>
+
+
+  <section id="printReport" class="print-report" aria-hidden="true"></section>
+
+  <datalist id="dl-mobile-plan"></datalist>
+  <datalist id="dl-watch-plan"></datalist>
+  <datalist id="dl-tablet-plan"></datalist>
+  <datalist id="dl-home-phone-plan"></datalist>
+  <datalist id="dl-home-5g-plan"></datalist>
+  <datalist id="dl-plan-discounts"></datalist>
+  <datalist id="dl-mobile-options"></datalist>
+  <datalist id="dl-mobile-devices"></datalist>
+  <datalist id="dl-watch-devices"></datalist>
+  <datalist id="dl-tablet-devices"></datalist>
+  <datalist id="dl-home-phone-devices"></datalist>
+  <datalist id="dl-device-discounts"></datalist>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const TAX_RATE = 0.14975;
+    const STORE_LOCATIONS_SOURCE = "https://script.google.com/macros/s/AKfycbyDF8W3u9bstxw-2EppMsxpQJd6YVijgYG4Gh3eGYR4d6-gH37ovHZVRG9MYmqOKyq9/exec";
+
+    const PROVIDERS = {
+      rogers: {
+        name: "Rogers",
+        printBrand: "Rogers · estimation multi-services",
+        logo: "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/brand/rogers_red.png",
+        iconLogo: "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/brand/rogers_mobius_red.png",
+        printLogo: "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/brand/rogers_red.png",
+        logoAlt: "Logo Rogers"
+      },
+      fido: {
+        name: "Fido",
+        printBrand: "Fido · estimation multi-services",
+        logo: "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/brand/fido_black-yellow.png",
+        iconLogo: "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/brand/fido_doghouse_black-yellow.png",
+        printLogo: "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/brand/fido_black-yellow.png",
+        logoAlt: "Logo Fido"
+      }
+    };
+
+    const ROGERS_BANK_LOGO = "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/brand/Banque-Rogers_horizontal_logo_red.png";
+    const ROGERS_MASTERCARD_PROMO = "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/Rogers-Mastercard_Promo-FR.png";
+    const ROGERS_MASTERCARD_PROMO_PRINT = "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/Rogers-Mastercard_Promo-FR_Print.png";
+    const BRING_OWN_DEVICE_PRINT_IMAGE = "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/fr/total-du-compte/media/apportez-votre-appareil.png";
+
+    const JSON_SOURCES = {
+      mobilePlan: {
+        datalistId: "dl-mobile-plan",
+        url: "https://script.google.com/macros/s/AKfycbxsRQHLuNegmMqmrCGYr22o1zdCySiImirArKtdeblfr7jNUmpHUxL1lVfaIv3GSQRZ/exec",
+        labelKey: "typeForfait"
+      },
+      watchPlan: {
+        datalistId: "dl-watch-plan",
+        url: "https://script.google.com/macros/s/AKfycbwAvVTffkzy2lF3DajAqrr-Gf0Bkju8c2EVqpNHqTFZvvTI0JxWYsFSSxwtv1ZPJP4/exec",
+        labelKey: "montreForfait"
+      },
+      tabletPlan: {
+        datalistId: "dl-tablet-plan",
+        url: "https://script.google.com/macros/s/AKfycbwSvaLq7ms9AGkwrFgW-rmeYVp07qTQbc0YYTXnfBqBgfW_A71_SrfQE_q-CihFjp43Lw/exec",
+        labelKey: "tabletteForfait"
+      },
+      homePhonePlan: {
+        datalistId: "dl-home-phone-plan",
+        url: "https://script.google.com/macros/s/AKfycbykJfxduZgOGTuvsew9EwiAghwn-tTgEMjGnwthve8Zhq4cSigkaLan5-rqj2FU_H9P-g/exec",
+        labelKey: "homePhoneForfait"
+      },
+      home5GPlan: {
+        datalistId: "dl-home-5g-plan",
+        url: "https://script.google.com/macros/s/AKfycbyPFGKjP7sEuse9BZ3iJ3jNmJgWTBtRB43rC62Hg-LzsAd5GhDa3RTfnulvxF9ZsZH2/exec",
+        labelKey: "home5GForfait"
+      },
+      planDiscounts: {
+        datalistId: "dl-plan-discounts",
+        url: "https://script.google.com/macros/s/AKfycbyn5VWsRhlWh7lYpMk1o3eVJYZNP7IRhr-B18fKiqPTcJgd6PUzC2FgZQJo--160gb1/exec",
+        labelKey: "rabaisForfait"
+      },
+      mobileOptions: {
+        datalistId: "dl-mobile-options",
+        url: "https://script.google.com/macros/s/AKfycbyFt3p7B9qhDSwjZWI5wtn6WR_zsmJlbkwVHgkrpg5Lz0SzqLMXFTt9B0Ikr1e2jYJ_/exec",
+        labelKey: "optionsForfait"
+      },
+      mobileDevices: {
+        datalistId: "dl-mobile-devices",
+        url: "https://script.google.com/macros/s/AKfycbxfaXzkZufe80QInJomg1ax_SeL9lptrVIfq-YDNqS87Y_pf2bcbVLVmUNGKoh7oNnpcA/exec",
+        labelKey: "nomAppareil",
+        imageKeys: ["imageAppareilURL"]
+      },
+      watchDevices: {
+        datalistId: "dl-watch-devices",
+        url: "https://script.google.com/macros/s/AKfycbzuZJqY9HkQ6cKRT-HNGgh1P1ErS8RWKG5y6poU8pCdoVMTHvO51mNjhAisavNyT31P/exec",
+        labelKey: "nomMontre",
+        imageKeys: ["imageMontreURL"]
+      },
+      tabletDevices: {
+        datalistId: "dl-tablet-devices",
+        url: "https://script.google.com/macros/s/AKfycbwRUJh1GI_3ZHxua4C8B7jBm7AwyZCwWAHZ4bDHrxMvCFXtGOAtjrBM29CK3w8HRTmSXA/exec",
+        labelKey: "nomTablette",
+        imageKeys: ["imageTabletteURL", "imageMontreURL"]
+      },
+      homePhoneDevices: {
+        datalistId: "dl-home-phone-devices",
+        url: "https://script.google.com/macros/s/AKfycbz8yg3YxFcwzp8UkpShlrsTlFJW1G_1wjEyxdEMDmeTqzxPVZtfdFJNnICIU66i0Xkp/exec",
+        labelKey: "nomHomePhone",
+        imageKeys: ["imageHomePhoneURL"]
+      },
+      deviceDiscounts: {
+        datalistId: "dl-device-discounts",
+        url: "https://script.google.com/macros/s/AKfycbxPC9aWtNYLDqPdGIHTqCWeVKdTpTxrQrNzUNfA3pWQmRCUEyB456YgzUi5zx8Kv3iD/exec",
+        labelKey: "rabaisAppareil"
+      }
+    };
+
+    const LINE_TYPES = {
+      mobile: {
+        label: "Ligne mobile",
+        shortLabel: "Mobile",
+        planList: "dl-mobile-plan",
+        planPlaceholder: "Ex. Infini 5G - Canada et É.-U.",
+        deviceList: "dl-mobile-devices",
+        deviceLabel: "Nom de l’appareil",
+        devicePlaceholder: "Ex. iPhone 16 128 Go",
+        bringOwnText: "Apportez votre téléphone",
+        financingLabel: "Type de financement",
+        holderLabel: "Nom du titulaire",
+        phoneLabel: "Numéro de téléphone",
+        hasData: true,
+        hasOptions: true,
+        hasDevice: true,
+        hasFinancingType: true,
+        deviceDataKey: "mobileDevices"
+      },
+      watch: {
+        label: "Montre intelligente",
+        shortLabel: "Montre",
+        planList: "dl-watch-plan",
+        planPlaceholder: "Ex. Forfait pour Apple Watch",
+        deviceList: "dl-watch-devices",
+        deviceLabel: "Nom de la montre",
+        devicePlaceholder: "Ex. Apple Watch Series 11 44 mm",
+        bringOwnText: "Apportez votre appareil",
+        holderLabel: "Nom du titulaire associé",
+        phoneLabel: "Numéro de téléphone associé",
+        hasData: true,
+        hasOptions: false,
+        hasDevice: true,
+        hasFinancingType: false,
+        deviceDataKey: "watchDevices"
+      },
+      tablet: {
+        label: "Tablette",
+        shortLabel: "Tablette",
+        planList: "dl-tablet-plan",
+        planPlaceholder: "Ex. Données seulement",
+        deviceList: "dl-tablet-devices",
+        deviceLabel: "Nom de la tablette",
+        devicePlaceholder: "Ex. Apple iPad Air 5",
+        bringOwnText: "Apportez votre appareil",
+        holderLabel: "Nom du titulaire associé",
+        phoneLabel: "Numéro de téléphone associé",
+        hasData: true,
+        hasOptions: false,
+        hasDevice: true,
+        hasFinancingType: false,
+        deviceDataKey: "tabletDevices"
+      },
+      homePhone: {
+        label: "Téléphonie résidentielle",
+        shortLabel: "Téléphonie",
+        planList: "dl-home-phone-plan",
+        planPlaceholder: "Ex. Appels illimités",
+        deviceList: "dl-home-phone-devices",
+        deviceLabel: "Nom de l’appareil",
+        devicePlaceholder: "Ex. Téléphone résidentiel sans fil TCL",
+        bringOwnText: "Apportez votre appareil",
+        holderLabel: "Nom du titulaire associé",
+        phoneLabel: "Numéro de téléphone",
+        hasData: false,
+        hasOptions: false,
+        hasDevice: true,
+        hasFinancingType: false,
+        deviceDataKey: "homePhoneDevices"
+      },
+      home5g: {
+        label: "Internet résidentiel 5G",
+        shortLabel: "Internet 5G",
+        planList: "dl-home-5g-plan",
+        planPlaceholder: "Ex. Internet résidentiel 5G",
+        hasData: true,
+        hasUnlimitedData: true,
+        hasSpeed: true,
+        hasOptions: false,
+        hasDevice: false,
+        fixedLineName: "Internet résidentiel 5G"
+      },
+      other: {
+        label: "Autre",
+        shortLabel: "Autre",
+        servicePlaceholder: "Ex. Frais mensuel spécial, option additionnelle, service ponctuel...",
+        holderLabel: "Nom du titulaire ou description de la ligne",
+        phoneLabel: "Numéro de téléphone",
+        hasData: false,
+        hasOptions: false,
+        hasDevice: false,
+        isOther: true
+      }
+    };
+
+    const state = {
+      lineId: 0,
+      provider: "rogers",
+      deviceImageBySource: {},
+      jsonLoaded: 0,
+      jsonFailed: 0,
+      storeLocations: null,
+      selectedStore: null
+    };
+
+    const els = {
+      addLineMenu: document.getElementById("addLineMenu"),
+      addLineToggle: document.getElementById("addLineToggle"),
+      addLineDropdown: document.getElementById("addLineDropdown"),
+      linesContainer: document.getElementById("linesContainer"),
+      emptyState: document.getElementById("emptyState"),
+      jsonStatus: document.getElementById("jsonStatus"),
+      accountMonthlySubtotal: document.getElementById("accountMonthlySubtotal"),
+      accountMonthlyTaxes: document.getElementById("accountMonthlyTaxes"),
+      accountMonthlyTotal: document.getElementById("accountMonthlyTotal"),
+      accountOneTimeSubtotal: document.getElementById("accountOneTimeSubtotal"),
+      accountOneTimeTaxes: document.getElementById("accountOneTimeTaxes"),
+      accountOneTimeTotal: document.getElementById("accountOneTimeTotal"),
+      accountLineCount: document.getElementById("accountLineCount"),
+      monthlySavingsText: document.getElementById("monthlySavingsText"),
+      rogersCashbackAmount: document.getElementById("rogersCashbackAmount"),
+      rogersNewAccountTotal: document.getElementById("rogersNewAccountTotal"),
+      addNormalSpendingBtn: document.getElementById("addNormalSpendingBtn"),
+      normalSpendingWrap: document.getElementById("normalSpendingWrap"),
+      normalSpendingInput: document.getElementById("normalSpendingInput"),
+      summaryLines: document.getElementById("summaryLines"),
+      toast: document.getElementById("toast"),
+      printReport: document.getElementById("printReport"),
+      providerEyebrow: document.getElementById("providerEyebrow"),
+      activeProviderLogo: document.getElementById("activeProviderLogo"),
+      providerOptions: document.querySelectorAll("[data-provider]"),
+      storeNumberInput: document.getElementById("storeNumberInput"),
+      storeLookupBtn: document.getElementById("storeLookupBtn"),
+      storeCoordinates: document.getElementById("storeCoordinates"),
+      advisorInput: document.getElementById("advisorInput"),
+      addLineOptions: document.querySelectorAll("[data-line-option]")
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadAllDatalists();
+      bindBrandAndContactControls();
+      bindAddLineMenu();
+      bindMoneyFocusBehavior();
+      setProvider("rogers");
+      document.getElementById("resetBtn").addEventListener("click", resetAll);
+      document.getElementById("printBtn").addEventListener("click", () => {
+        preparePrintReport();
+        window.print();
+      });
+      window.addEventListener("beforeprint", preparePrintReport);
+      document.getElementById("copySummaryBtn").addEventListener("click", copySummary);
+      els.addNormalSpendingBtn.addEventListener("click", () => {
+        els.normalSpendingWrap.classList.remove("hidden");
+        els.addNormalSpendingBtn.disabled = true;
+        els.normalSpendingInput.focus();
+      });
+      els.normalSpendingInput.addEventListener("input", updateTotals);
+      els.advisorInput.addEventListener("input", updateTotals);
+      els.normalSpendingInput.addEventListener("blur", () => {
+        if (els.normalSpendingInput.value.trim()) {
+          els.normalSpendingInput.value = formatCurrency(parseMoney(els.normalSpendingInput.value));
+        }
+        updateTotals();
+      });
+      updateTotals();
+    });
+
+    function bindBrandAndContactControls() {
+      els.providerOptions.forEach(button => {
+        button.addEventListener("click", () => setProvider(button.dataset.provider));
+      });
+
+      els.storeNumberInput.addEventListener("input", () => {
+        els.storeNumberInput.value = els.storeNumberInput.value.replace(/\D/g, "");
+      });
+
+      els.storeNumberInput.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          lookupStoreByNumber();
+        }
+      });
+
+      els.storeLookupBtn.addEventListener("click", lookupStoreByNumber);
+    }
+
+
+    function bindAddLineMenu() {
+      els.addLineToggle.addEventListener("click", event => {
+        event.stopPropagation();
+        toggleAddLineMenu();
+      });
+
+      els.addLineOptions.forEach(button => {
+        button.addEventListener("click", event => {
+          event.preventDefault();
+          event.stopPropagation();
+          const selectedType = button.dataset.lineOption;
+          closeAddLineMenu();
+          els.addLineToggle.blur();
+          addLine(selectedType);
+          closeAddLineMenu();
+        });
+      });
+
+      document.addEventListener("click", event => {
+        if (!els.addLineMenu.contains(event.target)) closeAddLineMenu();
+      });
+
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape") closeAddLineMenu();
+      });
+    }
+
+    function toggleAddLineMenu(forceState) {
+      const shouldOpen = typeof forceState === "boolean" ? forceState : !els.addLineMenu.classList.contains("open");
+      els.addLineMenu.classList.toggle("open", shouldOpen);
+      els.addLineToggle.setAttribute("aria-expanded", String(shouldOpen));
+      els.addLineDropdown.hidden = !shouldOpen;
+      els.addLineDropdown.style.display = shouldOpen ? "grid" : "none";
+    }
+
+    function closeAddLineMenu() {
+      toggleAddLineMenu(false);
+    }
+
+    function bindMoneyFocusBehavior() {
+      document.addEventListener("focusin", event => {
+        const target = event.target;
+        if (!(target instanceof HTMLInputElement) || !target.matches("[data-money]")) return;
+        target.value = "";
+        const card = target.closest(".line-card");
+        if (card) recalculateLine(card);
+        else updateTotals();
+      });
+    }
+
+    function setProvider(providerKey) {
+      const provider = PROVIDERS[providerKey] || PROVIDERS.rogers;
+      state.provider = providerKey in PROVIDERS ? providerKey : "rogers";
+      document.body.classList.toggle("provider-rogers", state.provider === "rogers");
+      document.body.classList.toggle("provider-fido", state.provider === "fido");
+      document.title = `Calculateur de total du compte ${provider.name}`;
+      els.providerEyebrow.textContent = `${provider.name} - Estimation multi-service`;
+      els.activeProviderLogo.src = provider.iconLogo || provider.logo;
+      els.activeProviderLogo.alt = provider.logoAlt;
+      els.providerOptions.forEach(button => {
+        const active = button.dataset.provider === state.provider;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+      updateTotals();
+    }
+
+    function getProviderName() {
+      return PROVIDERS[state.provider]?.name || "Rogers";
+    }
+
+    function getProviderPrintBrand() {
+      return PROVIDERS[state.provider]?.printBrand || "Rogers · estimation multi-services";
+    }
+
+    async function loadStoreLocations() {
+      if (Array.isArray(state.storeLocations)) return state.storeLocations;
+      const response = await fetch(STORE_LOCATIONS_SOURCE, { cache: "no-store" });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      state.storeLocations = Array.isArray(data) ? data : Array.isArray(data.data) ? data.data : [];
+      return state.storeLocations;
+    }
+
+    async function lookupStoreByNumber() {
+      const number = String(els.storeNumberInput.value || "").replace(/\D/g, "");
+      els.storeNumberInput.value = number;
+      if (!number) {
+        state.selectedStore = null;
+        renderStoreCoordinates(null, "Entrez un numéro de magasin pour afficher les coordonnées.");
+        updateTotals();
+        return;
+      }
+
+      renderStoreCoordinates(null, "Recherche des coordonnées du magasin...");
+      try {
+        const stores = await loadStoreLocations();
+        const store = stores.find(item => String(item?.number ?? "").trim() === number);
+        if (!store) {
+          state.selectedStore = null;
+          renderStoreCoordinates(null, "Aucun magasin trouvé pour ce numéro.");
+        } else {
+          state.selectedStore = store;
+          renderStoreCoordinates(store);
+        }
+      } catch (error) {
+        console.warn("Impossible de charger les coordonnées du magasin", error);
+        state.selectedStore = null;
+        renderStoreCoordinates(null, "Impossible de charger les coordonnées pour le moment.");
+      }
+      updateTotals();
+    }
+
+    function renderStoreCoordinates(store, fallbackText = "") {
+      els.storeCoordinates.classList.remove("hidden");
+      if (!store) {
+        els.storeCoordinates.innerHTML = `<span class="muted">${escapeHtml(fallbackText)}</span>`;
+        return;
+      }
+      const lines = [store.name, store.address1, store.address2, store.phone]
+        .map(value => String(value || "").trim())
+        .filter(Boolean);
+      els.storeCoordinates.innerHTML = lines.length
+        ? `<div class="store-coordinates-inline">${lines.map((line, index) => index === 0 ? `<strong>${escapeHtml(line)}</strong>` : `<span>${escapeHtml(line)}</span>`).join("")}</div>`
+        : `<span class="muted">Coordonnées non disponibles pour ce magasin.</span>`;
+    }
+
+    function getStoreLines() {
+      const store = state.selectedStore;
+      if (!store) return [];
+      return [store.name, store.address1, store.address2, store.phone]
+        .map(value => String(value || "").trim())
+        .filter(Boolean);
+    }
+
+    function getAdvisorName() {
+      return String(els.advisorInput?.value || "").trim();
+    }
+
+    async function loadAllDatalists() {
+      const entries = Object.entries(JSON_SOURCES);
+      state.deviceImageBySource = {};
+      const jobs = entries.map(async ([sourceKey, config]) => {
+        try {
+          const response = await fetch(config.url, { cache: "no-store" });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const data = await response.json();
+          const rows = Array.isArray(data) ? data : Array.isArray(data.data) ? data.data : [];
+          populateDatalist(config.datalistId, rows, config.labelKey);
+          if (config.imageKeys) {
+            state.deviceImageBySource[sourceKey] = buildImageMap(rows, config.labelKey, config.imageKeys);
+          }
+          state.jsonLoaded += 1;
+        } catch (error) {
+          console.warn(`Impossible de charger ${sourceKey}`, error);
+          state.jsonFailed += 1;
+        }
+      });
+
+      await Promise.allSettled(jobs);
+      if (state.jsonFailed === 0) {
+        els.jsonStatus.textContent = `${state.jsonLoaded} listes JSON chargées.`;
+      } else if (state.jsonLoaded > 0) {
+        els.jsonStatus.textContent = `${state.jsonLoaded} listes chargées, ${state.jsonFailed} liste(s) non chargée(s). Les champs restent modifiables manuellement.`;
+      } else {
+        els.jsonStatus.textContent = "Les listes JSON n’ont pas pu être chargées. Les champs restent remplissables manuellement.";
+      }
+    }
+
+    function populateDatalist(datalistId, rows, labelKey) {
+      const datalist = document.getElementById(datalistId);
+      if (!datalist) return;
+      datalist.innerHTML = "";
+      const seen = new Set();
+      rows.forEach(row => {
+        const value = String(row?.[labelKey] ?? "").trim();
+        if (!value || seen.has(value)) return;
+        seen.add(value);
+        const option = document.createElement("option");
+        option.value = value;
+        datalist.appendChild(option);
+      });
+    }
+
+    function buildImageMap(rows, labelKey, imageKeys) {
+      const map = new Map();
+      rows.forEach(row => {
+        const label = String(row?.[labelKey] ?? "").trim();
+        if (!label) return;
+        const imageUrl = imageKeys.map(key => row?.[key]).find(Boolean);
+        if (imageUrl) map.set(normalizeForMatch(label), String(imageUrl).trim());
+      });
+      return map;
+    }
+
+    function addLine(type, options = {}) {
+      const config = LINE_TYPES[type];
+      if (!config) return;
+
+      state.lineId += 1;
+      const id = `line-${state.lineId}`;
+      const ordinal = countExistingType(type) + 1;
+      const card = document.createElement("article");
+      card.className = "line-card";
+      card.dataset.type = type;
+      card.dataset.id = id;
+      card.dataset.ordinal = String(ordinal);
+
+      card.innerHTML = `
+        <div class="line-header" role="button" tabindex="0" aria-expanded="true" title="Cliquer pour réduire ou développer ce bloc">
+          <div>
+            <div class="line-title-row">
+              <h2 class="line-title" data-line-title>${escapeHtml(config.label)} #${ordinal}</h2>
+              <span class="pill">${escapeHtml(config.shortLabel)}</span>
+            </div>
+            <p class="line-subtitle" data-line-subtitle>Remplissez les champs nécessaires pour calculer cette ligne.</p>
+          </div>
+          <div class="line-header-actions">
+            <button class="btn btn-icon btn-icon-blue" type="button" data-action="duplicate-line" aria-label="Dupliquer" title="Dupliquer"><i class="iconoir-copy"></i></button>
+            <button class="btn btn-icon btn-icon-danger" type="button" data-action="remove-line" aria-label="Supprimer" title="Supprimer"><i class="iconoir-trash"></i></button>
+            <span class="collapse-icon" data-collapse-icon aria-hidden="true"><i class="iconoir-nav-arrow-up"></i></span>
+          </div>
+        </div>
+        <div class="line-body">
+          ${renderInformationSection(config, type, ordinal)}
+          ${renderServiceOrPlanSection(config, type)}
+          ${config.hasOptions ? renderOptionsSection() : ""}
+          ${config.hasDevice ? renderDeviceSection(config, id) : ""}
+          ${renderLineTotalSection(type)}
+        </div>
+      `;
+
+      els.linesContainer.appendChild(card);
+      bindLineEvents(card, config);
+      updateVisibility();
+      recalculateLine(card);
+      if (!options.skipToast) showToast(`${config.label} ajoutée`);
+      return card;
+    }
+
+    function renderInformationSection(config, type, ordinal) {
+      if (config.fixedLineName) {
+        return `
+          <section class="section">
+            <div class="section-header"><h3>A · Informations</h3></div>
+            <div class="section-body">
+              <div class="readout important"><span>Nom de la ligne</span><strong data-fixed-name>${escapeHtml(config.fixedLineName)}</strong></div>
+              ${renderActivationFeeSection()}
+            </div>
+          </section>
+        `;
+      }
+
+      const defaultPlaceholder = type === "mobile" ? `Ligne mobile #${ordinal}` : `Ligne associée #${ordinal}`;
+      return `
+        <section class="section">
+          <div class="section-header"><h3>A · Informations</h3></div>
+          <div class="section-body">
+            <div class="grid-2">
+              ${fieldHtml(config.phoneLabel, `<input type="text" inputmode="tel" placeholder="${defaultPlaceholder}" data-field="phone">`)}
+              ${fieldHtml(config.holderLabel, `<input type="text" placeholder="Facultatif" data-field="holder">`)}
+            </div>
+            ${renderActivationFeeSection()}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderActivationFeeSection() {
+      return `
+        <div class="section">
+          <div class="section-header">
+            <h3>A.2 · Frais d’activation</h3>
+            <button class="btn btn-success btn-mini" type="button" data-action="add-activation-discount"><i class="iconoir-label"></i><span>Ajouter un rabais</span></button>
+          </div>
+          <div class="section-body">
+            <div class="grid-2">
+              ${fieldHtml("Montant régulier du frais d’activation", `<input type="text" inputmode="decimal" data-money data-field="activationRegular" placeholder="0,00 $">`)}
+              <div class="readout important"><span>Montant du frais d’activation</span><strong data-output="activationNet">0,00 $</strong></div>
+            </div>
+            <div class="dynamic-list" data-container="activationDiscounts"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderServiceOrPlanSection(config, type) {
+      if (config.isOther) {
+        return `
+          <section class="section">
+            <div class="section-header"><h3>B · Service</h3></div>
+            <div class="section-body">
+              ${fieldHtml("Description du service", `<input type="text" placeholder="${escapeHtml(config.servicePlaceholder)}" data-field="serviceDescription">`)}
+              ${renderMonthlyPricingSection()}
+            </div>
+          </section>
+        `;
+      }
+
+      const details = [];
+      details.push(fieldHtml("Type de forfait", `<input type="text" list="${config.planList}" placeholder="${escapeHtml(config.planPlaceholder)}" data-field="planType">`));
+
+      if (config.hasUnlimitedData) {
+        details.push(`
+          <div>
+            <label>Données illimitées</label>
+            <label class="check-chip"><input type="checkbox" data-field="unlimitedData"> Données illimitées</label>
+          </div>
+        `);
+        details.push(fieldHtml("Données incluses (Go)", `<input type="number" min="0" step="1" data-field="dataGb" placeholder="Ex. 100">`));
+      } else if (config.hasData) {
+        details.push(fieldHtml("Données incluses (Go)", `<input type="number" min="0" step="1" data-field="dataGb" placeholder="Ex. 50">`));
+      }
+
+      if (config.hasSpeed) {
+        details.push(fieldHtml("Vitesse (mbps)", `<input type="number" min="0" step="1" data-field="speedMbps" placeholder="Ex. 100">`));
+      }
+
+      return `
+        <section class="section">
+          <div class="section-header"><h3>B · Forfait</h3></div>
+          <div class="section-body">
+            <div class="grid-${Math.min(Math.max(details.length, 2), 4)}">${details.join("")}</div>
+            ${renderMonthlyPricingSection()}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderMonthlyPricingSection() {
+      return `
+        <div class="section">
+          <div class="section-header">
+            <h3>B.1 · Tarif mensuel</h3>
+            <button class="btn btn-success btn-mini" type="button" data-action="add-plan-discount"><i class="iconoir-label"></i><span>Ajouter des rabais</span></button>
+          </div>
+          <div class="section-body">
+            <div class="grid-3">
+              ${fieldHtml("Tarif régulier", `<input type="text" inputmode="decimal" data-money data-field="planRegular" placeholder="0,00 $">`)}
+              <div class="readout"><span>Total des rabais</span><strong data-output="planDiscountTotal">0,00 $</strong></div>
+              <div class="readout important"><span>Tarif mensuel du forfait</span><strong data-output="planMonthly">0,00 $</strong></div>
+            </div>
+            <div class="dynamic-list" data-container="planDiscounts"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderOptionsSection() {
+      return `
+        <section class="section">
+          <div class="section-header">
+            <h3>C · Options</h3>
+            <button class="btn btn-blue btn-mini" type="button" data-action="add-option"><i class="iconoir-box"></i><span>Ajouter une option</span></button>
+          </div>
+          <div class="section-body">
+            <div class="dynamic-list" data-container="options"></div>
+            <div class="readout important"><span>Total des options</span><strong data-output="optionsTotal">0,00 $</strong></div>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderDeviceSection(config, lineId) {
+      const sectionLetter = config.hasOptions ? "D" : "C";
+      return `
+        <section class="section" data-section="device">
+          <div class="section-header">
+            <h3>${sectionLetter} · Appareil</h3>
+            <div class="radio-row">
+              <button class="btn btn-blue btn-mini" type="button" data-action="add-device"><i class="iconoir-smartphone-device"></i><span>Ajouter un appareil</span></button>
+              <button class="btn btn-red btn-mini hidden" type="button" data-action="remove-device"><i class="iconoir-trash"></i><span>Supprimer l’appareil</span></button>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="status-box">
+              <strong data-output="deviceStatus">${escapeHtml(config.bringOwnText)}</strong>
+              <span class="small-note">Le financement est facultatif.</span>
+            </div>
+            <div class="hidden" data-container="deviceDetails">
+              <div class="device-layout">
+                <div class="section">
+                  <div class="section-header"><h3>${sectionLetter}.1 · Appareil financé</h3></div>
+                  <div class="section-body">
+                    ${fieldHtml(config.deviceLabel, `<input type="text" list="${config.deviceList}" placeholder="${escapeHtml(config.devicePlaceholder)}" data-field="deviceName">`)}
+                    ${config.hasFinancingType ? renderFinancingType(lineId) : ""}
+                  </div>
+                </div>
+                <div class="device-image-wrap">
+                  <img alt="Image de l’appareil" data-device-image>
+                  <div class="image-placeholder" data-device-placeholder>Image affichée automatiquement si disponible dans le JSON</div>
+                </div>
+              </div>
+              <div class="section">
+                <div class="section-header">
+                  <h3>${sectionLetter}.2 · Tarif de l’appareil</h3>
+                  <button class="btn btn-success btn-mini" type="button" data-action="add-device-discount"><i class="iconoir-label"></i><span>Ajouter un rabais</span></button>
+                </div>
+                <div class="section-body">
+                  <div class="grid-3">
+                    ${fieldHtml("Acompte de l’appareil", `<input type="text" inputmode="decimal" data-money data-field="deviceDownPayment" placeholder="0,00 $">`)}
+                    ${fieldHtml("Tarif mensuel régulier de l’appareil", `<input type="text" inputmode="decimal" data-money data-field="deviceRegular" placeholder="0,00 $">`)}
+                    <div class="readout important"><span>Tarif mensuel de l’appareil</span><strong data-output="deviceMonthly">0,00 $</strong></div>
+                  </div>
+                  <div class="dynamic-list" data-container="deviceDiscounts"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderFinancingType(lineId) {
+      const groupName = `financing-${lineId}`;
+      return `
+        <div>
+          <label>Type de financement</label>
+          <div class="radio-row">
+            <label class="radio-chip"><input type="radio" name="${groupName}" value="Financement sur 24 mois" checked data-field="financingType"> Financement sur 24 mois</label>
+            <label class="radio-chip"><input type="radio" name="${groupName}" value="Payez moins et retournez" data-field="financingType"> Payez moins et retournez</label>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderLineTotalSection(type) {
+      const letter = type === "mobile" || type === "other" ? "E" : "D";
+      return `
+        <section class="section">
+          <div class="section-header"><h3>${letter} · Total pour la ligne</h3></div>
+          <div class="section-body">
+            <div class="readout-grid">
+              <div class="readout important"><span>Tarif mensuel de la ligne avant taxes</span><strong data-output="lineMonthly">0,00 $</strong></div>
+              <div class="readout"><span>Frais uniques de la ligne avant taxes</span><strong data-output="lineOneTime">0,00 $</strong></div>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function fieldHtml(label, controlHtml) {
+      return `<div><label>${escapeHtml(label)}</label>${controlHtml}</div>`;
+    }
+
+    function bindLineEvents(card, config) {
+      card.addEventListener("click", event => {
+        const actionButton = event.target.closest("[data-action]");
+        const header = event.target.closest(".line-header");
+        if (header && !actionButton) {
+          toggleLineCollapse(card);
+          return;
+        }
+        if (!actionButton) return;
+        const action = actionButton.dataset.action;
+
+        if (action === "remove-line") {
+          card.remove();
+          renumberLines();
+          updateVisibility();
+          updateTotals();
+          showToast("Ligne supprimée");
+          return;
+        }
+
+        if (action === "duplicate-line") {
+          duplicateLine(card, config);
+          return;
+        }
+
+        if (action === "add-activation-discount") {
+          addSingleMoneyDiscount(card, "activationDiscounts", "activationDiscount", actionButton);
+        }
+
+        if (action === "add-plan-discount") {
+          addMultiRow(card, "planDiscounts", "Rabais de forfait", "dl-plan-discounts", "planDiscount", actionButton, 5);
+        }
+
+        if (action === "add-option") {
+          addMultiRow(card, "options", "Option", "dl-mobile-options", "option", actionButton, 5);
+        }
+
+        if (action === "add-device") {
+          toggleDevice(card, config, true);
+        }
+
+        if (action === "remove-device") {
+          toggleDevice(card, config, false);
+        }
+
+        if (action === "add-device-discount") {
+          addDeviceDiscount(card, actionButton);
+        }
+
+        if (action === "remove-row") {
+          const row = actionButton.closest(".dynamic-row, .single-discount-row");
+          const parent = row?.parentElement;
+          row?.remove();
+          enableMatchingAddButton(card, parent?.dataset.container);
+          recalculateLine(card);
+        }
+
+        if (action === "add-sibling") {
+          const container = actionButton.closest("[data-container]");
+          if (!container) return;
+          if (container.dataset.container === "planDiscounts") {
+            addMultiRow(card, "planDiscounts", "Rabais de forfait", "dl-plan-discounts", "planDiscount", findAddButton(card, "add-plan-discount"), 5);
+          } else if (container.dataset.container === "options") {
+            addMultiRow(card, "options", "Option", "dl-mobile-options", "option", findAddButton(card, "add-option"), 5);
+          }
+        }
+      });
+
+      card.addEventListener("input", event => {
+        const target = event.target;
+        if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement)) return;
+
+        if (target.dataset.field === "unlimitedData") {
+          const dataInput = card.querySelector('[data-field="dataGb"]');
+          if (dataInput) {
+            dataInput.disabled = target.checked;
+            if (target.checked) dataInput.value = "";
+          }
+        }
+
+        if (target.dataset.field === "deviceName") {
+          updateDeviceImage(card, config);
+        }
+
+        updateLineTitle(card, config);
+        recalculateLine(card);
+      });
+
+      card.addEventListener("blur", event => {
+        const target = event.target;
+        if (!(target instanceof HTMLInputElement)) return;
+        if (target.matches("[data-money]")) {
+          if (target.value.trim()) {
+            target.value = formatCurrency(parseMoney(target.value));
+          }
+          recalculateLine(card);
+        }
+        if (target.dataset.field === "phone") {
+          target.value = formatPhone(target.value);
+          updateLineTitle(card, config);
+        }
+      }, true);
+
+      const header = card.querySelector(".line-header");
+      header?.addEventListener("keydown", event => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        if (event.target.closest("[data-action]")) return;
+        event.preventDefault();
+        toggleLineCollapse(card);
+      });
+    }
+
+    function duplicateLine(sourceCard, config) {
+      const duplicate = addLine(sourceCard.dataset.type, { skipToast: true });
+      if (!duplicate) return;
+      sourceCard.after(duplicate);
+
+      const deviceDetails = sourceCard.querySelector('[data-container="deviceDetails"]');
+      const deviceActive = deviceDetails && !deviceDetails.classList.contains("hidden");
+      if (deviceActive && config.hasDevice) toggleDevice(duplicate, config, true);
+
+      copyStaticLineFields(sourceCard, duplicate);
+      copyDynamicLineRows(sourceCard, duplicate);
+      updateDeviceImage(duplicate, config);
+
+      renumberLines();
+      recalculateLine(duplicate);
+      updateTotals();
+      showToast("Ligne dupliquée");
+    }
+
+    function copyStaticLineFields(sourceCard, duplicateCard) {
+      const skipped = new Set(["phone", "holder"]);
+      const dynamicSelector = ".dynamic-row, .single-discount-row";
+      const fields = [...new Set([...sourceCard.querySelectorAll("[data-field]")]
+        .filter(field => !field.closest(dynamicSelector))
+        .map(field => field.dataset.field)
+        .filter(field => field && !skipped.has(field)))];
+
+      fields.forEach(fieldName => {
+        const sourceFields = [...sourceCard.querySelectorAll(`[data-field="${fieldName}"]`)].filter(field => !field.closest(dynamicSelector));
+        const duplicateFields = [...duplicateCard.querySelectorAll(`[data-field="${fieldName}"]`)].filter(field => !field.closest(dynamicSelector));
+        if (!sourceFields.length || !duplicateFields.length) return;
+
+        if (sourceFields[0].type === "radio") {
+          const selected = sourceFields.find(field => field.checked)?.value;
+          if (!selected) return;
+          const target = duplicateFields.find(field => field.value === selected);
+          if (target) target.checked = true;
+          return;
+        }
+
+        if (sourceFields[0].type === "checkbox") {
+          duplicateFields[0].checked = sourceFields[0].checked;
+          return;
+        }
+
+        duplicateFields[0].value = sourceFields[0].value;
+      });
+
+      const unlimited = duplicateCard.querySelector('[data-field="unlimitedData"]');
+      const dataInput = duplicateCard.querySelector('[data-field="dataGb"]');
+      if (unlimited && dataInput) dataInput.disabled = unlimited.checked;
+    }
+
+    function copyDynamicLineRows(sourceCard, duplicateCard) {
+      copyRowsByContainer(sourceCard, duplicateCard, "activationDiscounts", () => {
+        addSingleMoneyDiscount(duplicateCard, "activationDiscounts", "activationDiscount", findAddButton(duplicateCard, "add-activation-discount"));
+      }, ["activationDiscount"]);
+
+      copyRowsByContainer(sourceCard, duplicateCard, "planDiscounts", () => {
+        addMultiRow(duplicateCard, "planDiscounts", "Rabais de forfait", "dl-plan-discounts", "planDiscount", findAddButton(duplicateCard, "add-plan-discount"), 5);
+      }, ["planDiscountDescription", "planDiscount"]);
+
+      copyRowsByContainer(sourceCard, duplicateCard, "options", () => {
+        addMultiRow(duplicateCard, "options", "Option", "dl-mobile-options", "option", findAddButton(duplicateCard, "add-option"), 5);
+      }, ["optionDescription", "option"]);
+
+      copyRowsByContainer(sourceCard, duplicateCard, "deviceDiscounts", () => {
+        addDeviceDiscount(duplicateCard, findAddButton(duplicateCard, "add-device-discount"));
+      }, ["deviceDiscountDescription", "deviceDiscount"]);
+    }
+
+    function copyRowsByContainer(sourceCard, duplicateCard, containerName, addRow, fields) {
+      const sourceRows = [...(sourceCard.querySelector(`[data-container="${containerName}"]`)?.children || [])];
+      const duplicateContainer = duplicateCard.querySelector(`[data-container="${containerName}"]`);
+      if (!sourceRows.length || !duplicateContainer) return;
+
+      sourceRows.forEach((sourceRow, index) => {
+        addRow();
+        const duplicateRow = duplicateContainer.children[index];
+        if (!duplicateRow) return;
+        fields.forEach(fieldName => {
+          const sourceField = sourceRow.querySelector(`[data-field="${fieldName}"]`);
+          const duplicateField = duplicateRow.querySelector(`[data-field="${fieldName}"]`);
+          if (!sourceField || !duplicateField) return;
+          duplicateField.value = sourceField.value;
+        });
+      });
+    }
+
+    function toggleLineCollapse(card, forcedState) {
+      const shouldCollapse = typeof forcedState === "boolean" ? forcedState : !card.classList.contains("collapsed");
+      card.classList.toggle("collapsed", shouldCollapse);
+      const header = card.querySelector(".line-header");
+      if (header) header.setAttribute("aria-expanded", String(!shouldCollapse));
+    }
+
+    function addSingleMoneyDiscount(card, containerName, fieldName, addButton) {
+      const container = card.querySelector(`[data-container="${containerName}"]`);
+      if (!container || container.children.length >= 1) return;
+      const row = document.createElement("div");
+      row.className = "single-discount-row";
+      row.innerHTML = `
+        ${fieldHtml("Rabais", `<input type="text" inputmode="decimal" data-money data-field="${fieldName}" placeholder="0,00 $">`)}
+        <button class="btn btn-icon btn-icon-danger" type="button" data-action="remove-row" aria-label="Supprimer" title="Supprimer"><i class="iconoir-trash"></i></button>
+      `;
+      container.appendChild(row);
+      if (addButton) addButton.disabled = true;
+      row.querySelector("input")?.focus();
+      recalculateLine(card);
+    }
+
+    function addDeviceDiscount(card, addButton) {
+      const container = card.querySelector('[data-container="deviceDiscounts"]');
+      if (!container || container.children.length >= 1) return;
+      const row = document.createElement("div");
+      row.className = "dynamic-row";
+      row.innerHTML = `
+        ${fieldHtml("Description", `<input type="text" list="dl-device-discounts" data-field="deviceDiscountDescription" placeholder="Ex. Promotion en cours">`)}
+        ${fieldHtml("Rabais", `<input type="text" inputmode="decimal" data-money data-field="deviceDiscount" placeholder="0,00 $">`)}
+        <button class="btn btn-icon btn-icon-danger" type="button" data-action="remove-row" aria-label="Supprimer" title="Supprimer"><i class="iconoir-trash"></i></button>
+        <span></span>
+      `;
+      container.appendChild(row);
+      if (addButton) addButton.disabled = true;
+      row.querySelector("input")?.focus();
+      recalculateLine(card);
+    }
+
+    function addMultiRow(card, containerName, label, listId, amountField, addButton, maxRows) {
+      const container = card.querySelector(`[data-container="${containerName}"]`);
+      if (!container || container.children.length >= maxRows) return;
+      const row = document.createElement("div");
+      row.className = "dynamic-row";
+      row.innerHTML = `
+        ${fieldHtml("Description", `<input type="text" list="${listId}" data-field="${amountField}Description" placeholder="${label}">`)}
+        ${fieldHtml("Montant", `<input type="text" inputmode="decimal" data-money data-field="${amountField}" placeholder="0,00 $">`)}
+        <button class="btn btn-icon btn-icon-danger" type="button" data-action="remove-row" aria-label="Supprimer" title="Supprimer"><i class="iconoir-trash"></i></button>
+        <button class="btn btn-icon btn-icon-success" type="button" data-action="add-sibling" aria-label="Ajouter" title="Ajouter"><i class="iconoir-plus"></i></button>
+      `;
+      container.appendChild(row);
+      row.querySelector("input")?.focus();
+      updateSiblingButtons(container, maxRows);
+      if (addButton) addButton.disabled = container.children.length >= maxRows;
+      recalculateLine(card);
+    }
+
+    function updateSiblingButtons(container, maxRows) {
+      const rows = [...container.children];
+      rows.forEach((row, index) => {
+        const addSibling = row.querySelector('[data-action="add-sibling"]');
+        if (addSibling) addSibling.disabled = index !== rows.length - 1 || rows.length >= maxRows;
+      });
+    }
+
+    function enableMatchingAddButton(card, containerName) {
+      if (!containerName) return;
+      const map = {
+        activationDiscounts: "add-activation-discount",
+        planDiscounts: "add-plan-discount",
+        options: "add-option",
+        deviceDiscounts: "add-device-discount"
+      };
+      const action = map[containerName];
+      const button = action ? findAddButton(card, action) : null;
+      const container = card.querySelector(`[data-container="${containerName}"]`);
+      if (!button || !container) return;
+      const max = containerName === "planDiscounts" || containerName === "options" ? 5 : 1;
+      button.disabled = container.children.length >= max;
+      if (containerName === "planDiscounts" || containerName === "options") updateSiblingButtons(container, max);
+    }
+
+    function findAddButton(card, action) {
+      return card.querySelector(`[data-action="${action}"]`);
+    }
+
+    function toggleDevice(card, config, active) {
+      const details = card.querySelector('[data-container="deviceDetails"]');
+      const addButton = card.querySelector('[data-action="add-device"]');
+      const removeButton = card.querySelector('[data-action="remove-device"]');
+      const status = card.querySelector('[data-output="deviceStatus"]');
+      if (!details || !addButton || !removeButton || !status) return;
+
+      details.classList.toggle("hidden", !active);
+      removeButton.classList.toggle("hidden", !active);
+      addButton.classList.toggle("hidden", active);
+      addButton.disabled = false;
+      status.textContent = active ? "Appareil en financement" : config.bringOwnText;
+
+      if (!active) {
+        details.querySelectorAll("input").forEach(input => {
+          if (input.type === "radio") {
+            input.checked = input.value === "Financement sur 24 mois";
+          } else if (input.dataset.field === "deviceDownPayment") {
+            input.value = "0,00 $";
+          } else {
+            input.value = "";
+          }
+        });
+        details.querySelectorAll('[data-container="deviceDiscounts"]').forEach(container => container.innerHTML = "");
+        const discountButton = card.querySelector('[data-action="add-device-discount"]');
+        if (discountButton) discountButton.disabled = false;
+        setDeviceImage(card, "");
+      }
+
+      updateLineTitle(card, config);
+      recalculateLine(card);
+    }
+
+    function updateDeviceImage(card, config) {
+      const input = card.querySelector('[data-field="deviceName"]');
+      const value = normalizeForMatch(input?.value || "");
+      const map = state.deviceImageBySource[config.deviceDataKey];
+      const imageUrl = map?.get(value) || "";
+      setDeviceImage(card, imageUrl);
+    }
+
+    function setDeviceImage(card, imageUrl) {
+      const image = card.querySelector("[data-device-image]");
+      const placeholder = card.querySelector("[data-device-placeholder]");
+      if (!image || !placeholder) return;
+      if (imageUrl) {
+        image.src = imageUrl;
+        image.style.display = "block";
+        placeholder.style.display = "none";
+        image.onerror = () => {
+          image.style.display = "none";
+          placeholder.style.display = "block";
+          placeholder.textContent = "Image introuvable ou bloquée par l’URL fournie";
+        };
+      } else {
+        image.removeAttribute("src");
+        image.style.display = "none";
+        placeholder.style.display = "block";
+        placeholder.textContent = "Image affichée automatiquement si disponible dans le JSON";
+      }
+    }
+
+    function recalculateLine(card) {
+      const planRegular = parseMoney(getFieldValue(card, "planRegular"));
+      const planDiscountTotal = sumMoneyFields(card, "planDiscount");
+      const planMonthly = Math.max(0, planRegular - planDiscountTotal);
+
+      const activationRegular = parseMoney(getFieldValue(card, "activationRegular"));
+      const activationDiscount = sumMoneyFields(card, "activationDiscount");
+      const activationNet = Math.max(0, activationRegular - activationDiscount);
+
+      const optionsTotal = sumMoneyFields(card, "option");
+
+      const deviceDetails = card.querySelector('[data-container="deviceDetails"]');
+      const deviceActive = deviceDetails && !deviceDetails.classList.contains("hidden");
+      const deviceRegular = deviceActive ? parseMoney(getFieldValue(card, "deviceRegular")) : 0;
+      const deviceDiscount = deviceActive ? sumMoneyFields(card, "deviceDiscount") : 0;
+      const deviceMonthly = Math.max(0, deviceRegular - deviceDiscount);
+      const deviceDownPayment = deviceActive ? parseMoney(getFieldValue(card, "deviceDownPayment")) : 0;
+
+      const monthlyRegular = planRegular + optionsTotal + deviceRegular;
+      const monthlyDiscount = planDiscountTotal + deviceDiscount;
+      const lineMonthly = Math.max(0, monthlyRegular - monthlyDiscount);
+      const monthlyTaxes = lineMonthly * TAX_RATE;
+      const monthlyTotal = lineMonthly + monthlyTaxes;
+
+      const oneTimeRegular = activationRegular + deviceDownPayment;
+      const oneTimeDiscount = activationDiscount;
+      const lineOneTime = Math.max(0, oneTimeRegular - oneTimeDiscount);
+      const oneTimeTaxes = lineOneTime * TAX_RATE;
+      const oneTimeTotal = lineOneTime + oneTimeTaxes;
+
+      setOutput(card, "planDiscountTotal", planDiscountTotal);
+      setOutput(card, "planMonthly", planMonthly);
+      setOutput(card, "activationNet", activationNet);
+      setOutput(card, "optionsTotal", optionsTotal);
+      setOutput(card, "deviceMonthly", deviceMonthly);
+      setOutput(card, "lineMonthly", lineMonthly);
+      setOutput(card, "lineOneTime", lineOneTime);
+
+      card.dataset.monthlyRegular = String(monthlyRegular);
+      card.dataset.monthlyDiscount = String(monthlyDiscount);
+      card.dataset.monthlySubtotal = String(lineMonthly);
+      card.dataset.monthlyTaxes = String(monthlyTaxes);
+      card.dataset.monthlyTotal = String(monthlyTotal);
+      card.dataset.oneTimeRegular = String(oneTimeRegular);
+      card.dataset.oneTimeDiscount = String(oneTimeDiscount);
+      card.dataset.oneTimeSubtotal = String(lineOneTime);
+      card.dataset.oneTimeTaxes = String(oneTimeTaxes);
+      card.dataset.oneTimeTotal = String(oneTimeTotal);
+      card.dataset.activationNet = String(activationNet);
+      card.dataset.activationTaxes = String(activationNet * TAX_RATE);
+      card.dataset.activationTotal = String(activationNet + (activationNet * TAX_RATE));
+      card.dataset.downPaymentSubtotal = String(deviceDownPayment);
+      card.dataset.downPaymentTaxes = String(deviceDownPayment * TAX_RATE);
+      card.dataset.downPaymentTotal = String(deviceDownPayment + (deviceDownPayment * TAX_RATE));
+
+      card.dataset.monthly = String(lineMonthly);
+      card.dataset.oneTime = String(lineOneTime);
+      updateTotals();
+    }
+
+    function sumMoneyFields(scope, fieldName) {
+      return [...scope.querySelectorAll(`[data-field="${fieldName}"]`)].reduce((total, input) => total + parseMoney(input.value), 0);
+    }
+
+    function getFieldValue(scope, fieldName) {
+      const input = scope.querySelector(`[data-field="${fieldName}"]`);
+      if (!input) return "";
+      if (input.type === "checkbox") return input.checked;
+      if (input.type === "radio") {
+        const checked = scope.querySelector(`[data-field="${fieldName}"]:checked`);
+        return checked?.value || "";
+      }
+      return input.value || "";
+    }
+
+    function setOutput(scope, outputName, value) {
+      const output = scope.querySelector(`[data-output="${outputName}"]`);
+      if (output) output.textContent = formatCurrency(value);
+    }
+
+    function updateTotals() {
+      const cards = [...document.querySelectorAll(".line-card")];
+      const monthlySubtotal = cards.reduce((total, card) => total + Number(card.dataset.monthlySubtotal || 0), 0);
+      const monthlyDiscounts = cards.reduce((total, card) => total + Number(card.dataset.monthlyDiscount || 0), 0);
+      const oneTimeSubtotal = cards.reduce((total, card) => total + Number(card.dataset.oneTimeSubtotal || 0), 0);
+      const monthlyTaxes = monthlySubtotal * TAX_RATE;
+      const monthlyTotal = monthlySubtotal + monthlyTaxes;
+      const oneTimeTaxes = oneTimeSubtotal * TAX_RATE;
+      const oneTimeTotal = oneTimeSubtotal + oneTimeTaxes;
+      const normalSpending = parseMoney(els.normalSpendingInput?.value || "");
+      const cashback = (monthlyTotal * 0.03) + (normalSpending * 0.02);
+      const newAccountTotal = monthlyTotal - cashback;
+
+      els.accountMonthlySubtotal.textContent = formatCurrency(monthlySubtotal);
+      els.accountMonthlyTaxes.textContent = formatCurrency(monthlyTaxes);
+      els.accountMonthlyTotal.textContent = formatCurrency(monthlyTotal);
+      els.accountOneTimeSubtotal.textContent = formatCurrency(oneTimeSubtotal);
+      els.accountOneTimeTaxes.textContent = formatCurrency(oneTimeTaxes);
+      els.accountOneTimeTotal.textContent = formatCurrency(oneTimeTotal);
+      els.accountLineCount.textContent = String(cards.length);
+      els.monthlySavingsText.textContent = `Vous économisez ${formatCurrency(monthlyDiscounts)} par mois avec ${getProviderName()}`;
+      els.rogersCashbackAmount.textContent = formatCurrency(cashback);
+      els.rogersNewAccountTotal.textContent = formatCurrency(newAccountTotal);
+      renderPrintReport({
+        cards,
+        monthlySubtotal,
+        monthlyTaxes,
+        monthlyTotal,
+        oneTimeSubtotal,
+        oneTimeTaxes,
+        oneTimeTotal,
+        monthlyDiscounts,
+        normalSpending,
+        cashback,
+        newAccountTotal
+      });
+
+      els.summaryLines.innerHTML = "";
+      if (!cards.length) {
+        const empty = document.createElement("div");
+        empty.className = "small-note";
+        empty.textContent = "Aucune ligne ajoutée.";
+        els.summaryLines.appendChild(empty);
+        return;
+      }
+
+      cards.forEach(card => {
+        const row = document.createElement("div");
+        row.className = "summary-line-detail";
+        row.innerHTML = renderSummaryLine(card);
+        els.summaryLines.appendChild(row);
+      });
+    }
+
+    function renderSummaryLine(card) {
+      const title = card.querySelector("[data-line-title]")?.textContent || "Ligne";
+      const subtitle = buildLineIdentity(card);
+      const monthlyRegular = Number(card.dataset.monthlyRegular || 0);
+      const monthlyDiscount = Number(card.dataset.monthlyDiscount || 0);
+      const monthlySubtotal = Number(card.dataset.monthlySubtotal || 0);
+      const monthlyTaxes = monthlySubtotal * TAX_RATE;
+      const monthlyTotal = monthlySubtotal + monthlyTaxes;
+      const oneTimeSubtotal = Number(card.dataset.oneTimeSubtotal || 0);
+      const oneTimeTaxes = oneTimeSubtotal * TAX_RATE;
+      const oneTimeTotal = oneTimeSubtotal + oneTimeTaxes;
+
+      return `
+        <div class="summary-line-top">
+          <strong>${escapeHtml(title)}</strong>
+          <small>${escapeHtml(subtitle)}</small>
+        </div>
+        <div class="summary-subgroup">
+          <h4>Résumé mensuel</h4>
+          <div class="summary-row"><span>Tarif mensuel régulier</span><strong>${formatCurrency(monthlyRegular)}</strong></div>
+          <div class="summary-row discount"><span>Total des rabais</span><strong>${formatCurrency(monthlyDiscount)}</strong></div>
+          <div class="summary-row"><span>Sous-total</span><strong>${formatCurrency(monthlySubtotal)}</strong></div>
+          <div class="summary-row"><span>Taxes</span><strong>${formatCurrency(monthlyTaxes)}</strong></div>
+          <div class="summary-row total"><span>Total</span><strong>${formatCurrency(monthlyTotal)}</strong></div>
+        </div>
+        <div class="summary-subgroup">
+          <h4>Frais uniques</h4>
+          <div class="summary-row"><span>Sous-total</span><strong>${formatCurrency(oneTimeSubtotal)}</strong></div>
+          <div class="summary-row"><span>Taxes</span><strong>${formatCurrency(oneTimeTaxes)}</strong></div>
+          <div class="summary-row total"><span>Total</span><strong>${formatCurrency(oneTimeTotal)}</strong></div>
+        </div>
+      `;
+    }
+
+
+    function preparePrintReport() {
+      document.querySelectorAll(".line-card").forEach(card => recalculateLine(card));
+      updateTotals();
+    }
+
+    function renderPrintReport(totals = {}) {
+      if (!els.printReport) return;
+
+      const cards = totals.cards || [...document.querySelectorAll(".line-card")];
+      const monthlySubtotal = totals.monthlySubtotal ?? cards.reduce((total, card) => total + Number(card.dataset.monthlySubtotal || 0), 0);
+      const monthlyTaxes = totals.monthlyTaxes ?? monthlySubtotal * TAX_RATE;
+      const monthlyTotal = totals.monthlyTotal ?? monthlySubtotal + monthlyTaxes;
+      const monthlyDiscounts = totals.monthlyDiscounts ?? cards.reduce((total, card) => total + Number(card.dataset.monthlyDiscount || 0), 0);
+      const activationSubtotal = cards.reduce((total, card) => total + Number(card.dataset.activationNet || 0), 0);
+      const activationTotal = activationSubtotal + (activationSubtotal * TAX_RATE);
+      const downPaymentSubtotal = cards.reduce((total, card) => total + Number(card.dataset.downPaymentSubtotal || 0), 0);
+      const downPaymentTotal = downPaymentSubtotal + (downPaymentSubtotal * TAX_RATE);
+      const normalSpending = totals.normalSpending ?? parseMoney(els.normalSpendingInput?.value || "");
+      const cashback = totals.cashback ?? ((monthlyTotal * 0.03) + (normalSpending * 0.02));
+      const newAccountTotal = totals.newAccountTotal ?? monthlyTotal - cashback;
+      const printedAt = new Intl.DateTimeFormat("fr-CA", {
+        dateStyle: "medium",
+        timeStyle: "short"
+      }).format(new Date());
+      const providerName = getProviderName();
+      const provider = PROVIDERS[state.provider] || PROVIDERS.rogers;
+      const advisor = getAdvisorName();
+      const storeHtml = renderPrintStoreCoordinates();
+      const advisorHtml = advisor ? `<strong>${escapeHtml(advisor)}</strong>` : `<strong>Non indiqué</strong>`;
+
+      const rows = cards.length
+        ? cards.map((card, index) => renderPrintLineRow(card, index)).join("")
+        : `<tr><td colspan="7"><div class="print-empty">Aucune ligne ajoutée.</div></td></tr>`;
+
+      els.printReport.innerHTML = `
+        <div class="print-page">
+          <header class="print-topbar">
+            <div class="print-heading-wrap print-heading-compact">
+              <img class="print-logo" src="${escapeHtml(provider.printLogo || provider.logo)}" alt="${escapeHtml(provider.logoAlt || providerName)}">
+              <h1 class="print-title">Résumé estimatif du compte</h1>
+            </div>
+            <div class="print-meta">
+              <div><strong>${cards.length}</strong> ligne(s)</div>
+              <div>Imprimé le ${escapeHtml(printedAt)}</div>
+            </div>
+          </header>
+
+          <section class="print-card">
+            <h2 class="print-card-title">Informations et coordonnées</h2>
+            <div class="print-card-body print-contact-grid">
+              <div class="print-contact-item"><span>Conseiller(ère)</span>${advisorHtml}</div>
+              <div class="print-contact-item print-store-item"><span>Coordonnées du magasin</span>${storeHtml}</div>
+            </div>
+          </section>
+
+          <section class="print-card">
+            <h2 class="print-card-title important">Résumé du compte</h2>
+            <div class="print-card-body account-summary-v13">
+              <div class="print-summary-group">
+                <h3>Frais uniques</h3>
+                <div class="print-kpi"><span>Sous-total</span><strong>${formatCurrency(activationSubtotal)}</strong></div>
+                <div class="print-kpi"><span>Taxes</span><strong>${formatCurrency(activationSubtotal * TAX_RATE)}</strong></div>
+                <div class="print-kpi"><span>Total</span><strong>${formatCurrency(activationTotal)}</strong></div>
+              </div>
+              <div class="print-summary-group">
+                <h3>Acomptes</h3>
+                <div class="print-kpi"><span>Sous-total</span><strong>${formatCurrency(downPaymentSubtotal)}</strong></div>
+                <div class="print-kpi"><span>Taxes</span><strong>${formatCurrency(downPaymentSubtotal * TAX_RATE)}</strong></div>
+                <div class="print-kpi"><span>Total</span><strong>${formatCurrency(downPaymentTotal)}</strong></div>
+              </div>
+              <div class="print-summary-group">
+                <h3>Mensuel</h3>
+                <div class="print-kpi"><span>Rabais totaux</span><strong>${formatCurrency(monthlyDiscounts)}</strong></div>
+                <div class="print-kpi"><span>Sous-total</span><strong>${formatCurrency(monthlySubtotal)}</strong></div>
+                <div class="print-kpi"><span>Taxes</span><strong>${formatCurrency(monthlyTaxes)}</strong></div>
+              </div>
+              <div class="print-kpi highlight monthly-total-big"><span>Mensuel · total</span><strong>${formatCurrency(monthlyTotal)}</strong></div>
+            </div>
+          </section>
+
+          <section class="print-card print-mastercard-card">
+            <h2 class="print-card-title">Rogers Mastercard</h2>
+            <div class="print-card-body print-mastercard-layout">
+              <div>
+                <img class="print-bank-logo" src="${escapeHtml(ROGERS_BANK_LOGO)}" alt="Banque Rogers">
+                <p class="print-note">Remises : 3 % du total mensuel + 2 % des dépenses normales inscrites (${formatCurrency(normalSpending)}).</p>
+              </div>
+              <img class="print-mastercard-promo" src="${escapeHtml(ROGERS_MASTERCARD_PROMO_PRINT)}" alt="Promotion Rogers Mastercard">
+              <div class="print-mini-grid print-mastercard-kpis">
+                <div class="print-kpi"><span>Remises Mastercard</span><strong>${formatCurrency(cashback)}</strong></div>
+                <div class="print-kpi highlight"><span>Nouveau total mensuel</span><strong>${formatCurrency(newAccountTotal)}</strong></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="print-card">
+            <h2 class="print-card-title">Résumé compact par ligne</h2>
+            <div class="print-card-body" style="padding:0;">
+              <table class="print-lines-table">
+                <thead>
+                  <tr>
+                    <th style="width:16%;">Ligne</th>
+                    <th style="width:32%;">Détails pertinents</th>
+                    <th class="money" style="width:9%;">Régulier/mois</th>
+                    <th class="money" style="width:9%;">Rabais/mois</th>
+                    <th class="money" style="width:11%;">Total/mois</th>
+                    <th class="money" style="width:11%;">Frais uniques</th>
+                    <th class="money" style="width:12%;">Acomptes</th>
+                  </tr>
+                </thead>
+                <tbody>${rows}</tbody>
+              </table>
+            </div>
+          </section>
+
+          <p class="print-legal">Ce document est fourni à titre informatif seulement et ne constitue pas une offre, une promesse de prix, ni un engagement contractuel de la part de Rogers Communications Canada ou de ses représentants. Les prix, offres et détails des services demeurent sujets à modification sans préavis, et les montants indiqués peuvent varier en fonction des politiques officielles de Rogers Communications Canada.<br><br>Les logos et marques affichés dans ce document sont la propriété exclusive de Rogers Communications Canada.</p>
+        </div>
+      `;
+    }
+
+    function renderPrintStoreCoordinates() {
+      const store = state.selectedStore;
+      if (!store) return `<strong>Non indiqué</strong>`;
+      const name = String(store.name || "").trim();
+      const address1 = String(store.address1 || "").trim();
+      const phone = String(store.phone || "").trim();
+      const address2 = String(store.address2 || "").trim();
+      if (![name, address1, phone, address2].some(Boolean)) return `<strong>Coordonnées non disponibles</strong>`;
+      return `
+        <div class="print-store-table">
+          <div class="print-store-cell store-name">${escapeHtml(name || "—")}</div>
+          <div class="print-store-cell">${escapeHtml(address1 || "—")}</div>
+          <div class="print-store-cell">${escapeHtml(phone || "—")}</div>
+          <div class="print-store-cell">${escapeHtml(address2 || "—")}</div>
+        </div>
+      `;
+    }
+
+    function renderPrintLineRow(card, index) {
+      const title = card.querySelector("[data-line-title]")?.textContent || `Ligne ${index + 1}`;
+      const identity = buildLineIdentity(card);
+      const monthlyRegular = Number(card.dataset.monthlyRegular || 0);
+      const monthlyDiscount = Number(card.dataset.monthlyDiscount || 0);
+      const monthlySubtotal = Number(card.dataset.monthlySubtotal || 0);
+      const monthlyTotal = Number(card.dataset.monthlyTotal || 0);
+      const activationSubtotal = Number(card.dataset.activationNet || 0);
+      const activationTotal = Number(card.dataset.activationTotal || 0);
+      const downPaymentSubtotal = Number(card.dataset.downPaymentSubtotal || 0);
+      const downPaymentTotal = Number(card.dataset.downPaymentTotal || 0);
+      const details = buildPrintLineDetails(card);
+
+      return `
+        <tr>
+          <td>
+            <div class="print-line-name">${escapeHtml(title)}</div>
+            <div class="print-muted">${escapeHtml(identity)}</div>
+          </td>
+          <td>${details}</td>
+          <td class="money">${formatCurrency(monthlyRegular)}</td>
+          <td class="money">${formatCurrency(monthlyDiscount)}</td>
+          <td class="money"><strong>${formatCurrency(monthlySubtotal)}</strong><br><span class="print-muted">${formatCurrency(monthlyTotal)} tx incl.</span></td>
+          <td class="money"><strong>${formatCurrency(activationTotal)}</strong><br><span class="print-money-note">${formatCurrency(activationSubtotal)} av. tx</span></td>
+          <td class="money"><strong>${formatCurrency(downPaymentTotal)}</strong><br><span class="print-money-note">${formatCurrency(downPaymentSubtotal)} av. tx</span></td>
+        </tr>
+      `;
+    }
+
+    function buildPrintLineDetails(card) {
+      const config = LINE_TYPES[card.dataset.type] || {};
+      const plan = String(getFieldValue(card, "planType") || getFieldValue(card, "serviceDescription") || "").trim();
+      const dataGb = String(getFieldValue(card, "dataGb") || "").trim();
+      const unlimitedData = Boolean(getFieldValue(card, "unlimitedData"));
+      const speedMbps = String(getFieldValue(card, "speedMbps") || "").trim();
+      const deviceDetails = card.querySelector('[data-container="deviceDetails"]');
+      const deviceActive = deviceDetails && !deviceDetails.classList.contains("hidden");
+      const deviceName = deviceActive ? String(getFieldValue(card, "deviceName") || "").trim() : "";
+      const financingType = deviceActive ? String(getFieldValue(card, "financingType") || "").trim() : "";
+      const bringOwnDevice = Boolean(config.hasDevice && !deviceActive);
+      const deviceImageUrl = deviceActive
+        ? String(card.querySelector("[data-device-image]")?.getAttribute("src") || "").trim()
+        : (bringOwnDevice ? BRING_OWN_DEVICE_PRINT_IMAGE : "");
+      const deviceImageAlt = deviceActive ? (deviceName || "Appareil") : (config.bringOwnText || "Apportez votre appareil");
+      const activationNet = Number(card.dataset.activationNet || 0);
+      const deviceMonthly = deviceActive ? Math.max(0, parseMoney(getFieldValue(card, "deviceRegular")) - sumMoneyFields(card, "deviceDiscount")) : 0;
+      const options = collectMoneyRows(card, "options", "optionDescription", "option");
+      const planDiscounts = collectMoneyRows(card, "planDiscounts", "planDiscountDescription", "planDiscount");
+      const deviceDiscounts = collectMoneyRows(card, "deviceDiscounts", "deviceDiscountDescription", "deviceDiscount");
+      const items = [];
+
+      if (plan) items.push({ label: "Forfait", lines: [escapeHtml(plan)] });
+      if (unlimitedData) items.push({ label: "Données", lines: ["Illimitées"] });
+      else if (dataGb) items.push({ label: "Données", lines: [`${escapeHtml(dataGb)} Go`] });
+      if (speedMbps) items.push({ label: "Vitesse", lines: [`${escapeHtml(speedMbps)} mbps`] });
+      if (options.length) items.push({ label: "Options", lines: options.map(escapeHtml) });
+      if (planDiscounts.length) items.push({ label: "Rabais", lines: planDiscounts.map(escapeHtml) });
+      if (deviceName) {
+        const deviceLines = [escapeHtml(deviceName)];
+        if (financingType) deviceLines.push(escapeHtml(financingType));
+        deviceLines.push(`${formatCurrency(deviceMonthly)}/mois`);
+        items.push({ label: "Appareil", lines: deviceLines });
+      } else if (bringOwnDevice) {
+        items.push({ label: "Appareil", lines: [escapeHtml(config.bringOwnText || "Apportez votre appareil")] });
+      }
+      if (deviceDiscounts.length) items.push({ label: "Rabais app.", lines: deviceDiscounts.map(escapeHtml) });
+      if (activationNet > 0) items.push({ label: "Activation", lines: [formatCurrency(activationNet)] });
+      if (!items.length) items.push({ label: "Détail", lines: [config.fixedLineName ? escapeHtml(config.fixedLineName) : "Aucun détail saisi"] });
+
+      const itemsHtml = items.map(item => `
+        <div class="print-detail-item">
+          <span>${item.label}</span>
+          <strong class="print-detail-lines">${item.lines.map(line => `<em class="print-detail-line">${line}</em>`).join("")}</strong>
+        </div>
+      `).join("");
+
+      return `
+        <div class="print-detail-layout">
+          <div class="print-detail-media">
+            ${deviceImageUrl ? `<img class="print-device-thumb" src="${escapeHtml(deviceImageUrl)}" alt="${escapeHtml(deviceImageAlt)}">` : ""}
+          </div>
+          <div class="print-detail-items">${itemsHtml}</div>
+        </div>
+      `;
+    }
+
+    function collectMoneyRows(card, containerName, labelField, amountField) {
+      const container = card.querySelector(`[data-container="${containerName}"]`);
+      if (!container) return [];
+      return [...container.children].map(row => {
+        const label = String(row.querySelector(`[data-field="${labelField}"]`)?.value || "").trim();
+        const amount = parseMoney(row.querySelector(`[data-field="${amountField}"]`)?.value || "");
+        if (!label && amount <= 0) return "";
+        const text = label || "Sans description";
+        return amount > 0 ? `${text} (${formatCurrency(amount)})` : text;
+      }).filter(Boolean);
+    }
+
+    function buildLineIdentity(card) {
+      const type = LINE_TYPES[card.dataset.type]?.shortLabel || "Ligne";
+      const phone = String(getFieldValue(card, "phone") || "").trim();
+      const holder = String(getFieldValue(card, "holder") || "").trim();
+      const pieces = [type];
+      if (phone) pieces.push(phone);
+      if (holder) pieces.push(holder);
+      return pieces.join(" · ");
+    }
+
+    function updateLineTitle(card, config) {
+      const title = card.querySelector("[data-line-title]");
+      const subtitle = card.querySelector("[data-line-subtitle]");
+      if (!title || !subtitle) return;
+      const ordinal = Number(card.dataset.ordinal || 1);
+      const phone = String(getFieldValue(card, "phone") || "").trim();
+      const holder = String(getFieldValue(card, "holder") || "").trim();
+      const plan = String(getFieldValue(card, "planType") || getFieldValue(card, "serviceDescription") || "").trim();
+      const device = String(getFieldValue(card, "deviceName") || "").trim();
+
+      const computedTitle = config.fixedLineName || `${config.label} #${ordinal}`;
+
+      title.textContent = computedTitle;
+      const parts = [];
+      if (holder && !config.isOther) parts.push(holder);
+      if (plan) parts.push(plan);
+      if (device) parts.push(device);
+      subtitle.textContent = parts.length ? parts.join(" · ") : "Remplissez les champs nécessaires pour calculer cette ligne.";
+    }
+
+    function updateVisibility() {
+      const hasLines = document.querySelectorAll(".line-card").length > 0;
+      els.emptyState.classList.toggle("hidden", hasLines);
+    }
+
+    function renumberLines() {
+      const cards = [...document.querySelectorAll(".line-card")];
+      const counts = {};
+      cards.forEach(card => {
+        const type = card.dataset.type;
+        counts[type] = (counts[type] || 0) + 1;
+        card.dataset.ordinal = String(counts[type]);
+        const config = LINE_TYPES[type];
+        const phoneInput = card.querySelector('[data-field="phone"]');
+        if (phoneInput && !phoneInput.value.trim()) {
+          phoneInput.placeholder = type === "mobile" ? `Ligne mobile #${counts[type]}` : `Ligne associée #${counts[type]}`;
+        }
+        updateLineTitle(card, config);
+      });
+    }
+
+    function countExistingType(type) {
+      return document.querySelectorAll(`.line-card[data-type="${type}"]`).length;
+    }
+
+    function formatPhone(rawValue) {
+      const digits = String(rawValue || "").replace(/\D/g, "");
+      if (digits.length === 10) {
+        return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+      }
+      if (digits.length === 11) {
+        return `${digits[0]} (${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7)}`;
+      }
+      return String(rawValue || "").trim();
+    }
+
+    function parseMoney(rawValue) {
+      if (rawValue === null || rawValue === undefined) return 0;
+      const cleaned = String(rawValue)
+        .replace(/\s/g, "")
+        .replace(/\$/g, "")
+        .replace(/,/g, ".")
+        .replace(/[^0-9.-]/g, "");
+      const parsed = Number.parseFloat(cleaned);
+      if (!Number.isFinite(parsed)) return 0;
+      return Math.max(0, parsed);
+    }
+
+    function formatCurrency(value) {
+      return new Intl.NumberFormat("fr-CA", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(Number(value || 0)) + " $";
+    }
+
+    function normalizeForMatch(value) {
+      return String(value || "").trim().toLocaleLowerCase("fr-CA");
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function resetAll() {
+      const cards = document.querySelectorAll(".line-card");
+      if (!cards.length) return;
+      if (!confirm("Voulez-vous vraiment supprimer toutes les lignes?")) return;
+      cards.forEach(card => card.remove());
+      state.selectedStore = null;
+      els.storeNumberInput.value = "";
+      els.storeCoordinates.classList.add("hidden");
+      els.storeCoordinates.innerHTML = "";
+      els.advisorInput.value = "";
+      updateVisibility();
+      closeAddLineMenu();
+      updateTotals();
+      showToast("Calculateur réinitialisé");
+    }
+
+    async function copySummary() {
+      const cards = [...document.querySelectorAll(".line-card")];
+      const providerName = getProviderName();
+      const monthlySubtotal = els.accountMonthlySubtotal.textContent;
+      const monthlyTaxes = els.accountMonthlyTaxes.textContent;
+      const monthlyTotal = els.accountMonthlyTotal.textContent;
+      const oneTimeSubtotal = els.accountOneTimeSubtotal.textContent;
+      const oneTimeTaxes = els.accountOneTimeTaxes.textContent;
+      const oneTimeTotal = els.accountOneTimeTotal.textContent;
+      const savings = els.monthlySavingsText.textContent;
+      const cashback = els.rogersCashbackAmount.textContent;
+      const newAccountTotal = els.rogersNewAccountTotal.textContent;
+      const storeLines = getStoreLines();
+      const advisor = getAdvisorName();
+      const lines = cards.map((card, index) => {
+        const title = card.querySelector("[data-line-title]")?.textContent || `Ligne ${index + 1}`;
+        const monthlyLineTotal = Number(card.dataset.monthlyTotal || 0);
+        const activationTotal = Number(card.dataset.activationTotal || 0);
+        const downPaymentTotal = Number(card.dataset.downPaymentTotal || 0);
+        return `- ${title}: ${formatCurrency(monthlyLineTotal)}/mois taxes incluses | Frais uniques: ${formatCurrency(activationTotal)} taxes incluses | Acomptes: ${formatCurrency(downPaymentTotal)} taxes incluses`;
+      });
+      const text = [
+        `Résumé estimatif du compte ${providerName}`,
+        "",
+        "Informations et coordonnées",
+        `Magasin: ${storeLines.length ? storeLines.join(" | ") : "Non indiqué"}`,
+        `Conseiller(ère): ${advisor || "Non indiqué"}`,
+        "",
+        "Résumé mensuel du compte",
+        `Sous-total: ${monthlySubtotal}`,
+        `Taxes: ${monthlyTaxes}`,
+        `Total: ${monthlyTotal}`,
+        "",
+        "Résumé des frais uniques",
+        `Sous-total: ${oneTimeSubtotal}`,
+        `Taxes: ${oneTimeTaxes}`,
+        `Total: ${oneTimeTotal}`,
+        "",
+        savings,
+        `Remises Rogers Mastercard estimées: ${cashback}`,
+        `Nouveau total mensuel estimé après remises Mastercard: ${newAccountTotal}`,
+        "",
+        "Détail par ligne:",
+        lines.length ? lines.join("\n") : "Aucune ligne ajoutée.",
+        "",
+        `Note: estimation rapide sous réserve des validations/offres officielles ${providerName}.`
+      ].join("\n");
+
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("Résumé copié");
+      } catch (error) {
+        console.warn(error);
+        showToast("Impossible de copier automatiquement");
+      }
+    }
+
+    function showToast(message) {
+      clearTimeout(toastTimer);
+      els.toast.textContent = message;
+      els.toast.classList.add("show");
+      toastTimer = setTimeout(() => els.toast.classList.remove("show"), 2200);
+    }
+  </script>
+</body>
+</html>
