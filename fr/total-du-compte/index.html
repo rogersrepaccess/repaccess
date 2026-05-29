@@ -1238,7 +1238,7 @@
 
     label { margin-bottom: 3px; font-size: .75rem; }
     .btn { min-height: 34px; border-radius: 10px; padding: 7px 10px; }
-    .btn-mini { min-height: 29px; padding: 5px 8px; font-size: .8rem; }
+    .btn-mini { min-height: 29px; padding: 5px 8px; font-size: .8rem; font-weight: normal;}
 
     .grid-2, .grid-3, .grid-4, .readout-grid { gap: 7px; }
 
@@ -1969,7 +1969,7 @@
 
       .print-mastercard-layout { display: grid; grid-template-columns: 112px 1fr; gap: 6px; align-items: center; }
       .print-bank-logo { width: 100%; max-height: 30px; object-fit: contain; object-position: left center; }
-      .print-mastercard-promo { width: 100%; max-height: 70px; object-fit: contain; border-radius: 6px; }
+      .print-mastercard-promo { width: auto; height: 75px; border-radius: 6px; }
 
       .print-lines-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 6.65pt; }
       .print-lines-table th, .print-lines-table td { border: 1px solid #d9dde5; padding: 2.5px 3.5px; vertical-align: top; }
@@ -2116,7 +2116,7 @@
       }
 
       .print-mastercard-layout {
-        grid-template-columns: 112px minmax(0, 1fr) 180px;
+        grid-template-columns: 550px minmax(0, 1fr) 0px;
         gap: 6px;
       }
 
@@ -2317,6 +2317,17 @@
         font-size: 14px;
       }
 
+    #edit-sheets-link {
+      cursor: pointer;
+      transition-duration: 150ms;
+      font-size: 14px;
+      height: 35px;
+    }
+
+    #edit-sheets-link:hover {
+      font-size: 16px;
+    }
+
   </style>
 </head>
 <body class="provider-rogers">
@@ -2458,8 +2469,7 @@
             <section class="summary-section mastercard-section">
               <h3 class="summary-section-title">Rogers Mastercard</h3>
               <div class="mastercard-media">
-                <img class="rogers-bank-logo" src="https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/brand/Banque-Rogers_horizontal_logo_red.png" alt="Banque Rogers">
-                <img class="rogers-mastercard-promo" src="https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/Rogers-Mastercard_Promo-FR.png" alt="Promotion Rogers Mastercard">
+                <img class="rogers-mastercard-promo" src="https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/Rogers-Mastercard_Promo-FR_2.png" alt="Promotion Rogers Mastercard">
               </div>
               <div class="cashback-banner">
                 <strong>Vous pourriez obtenir <span id="rogersCashbackAmount">0,00 $</span> en remises en argent avec cette facture</strong>
@@ -2479,6 +2489,11 @@
 représentants. Les prix, offres et détails des services demeurent sujets à modification sans préavis, et les montants indiqués peuvent varier en fonction des politiques officielles de Rogers Communications
 Canada.
 Les logos et marques affichés dans ce document sont la propriété exclusive de Rogers Communications Canada.
+        </div>
+        <div class="edit-sheets-link">
+          <form action="https://docs.google.com/spreadsheets/d/146t54V4Yj1ITM81nDi5DtZVyHBZE9gy6ruh8njWi6bU/edit?usp=sharing" target="_blank">
+            <input id="edit-sheets-link"type="submit" value="Modifier les valeurs par défaut" />
+          </form>
         </div>
       </aside>
     </main>
@@ -2526,8 +2541,8 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
     };
 
     const ROGERS_BANK_LOGO = "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/brand/Banque-Rogers_horizontal_logo_red.png";
-    const ROGERS_MASTERCARD_PROMO = "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/Rogers-Mastercard_Promo-FR.png";
-    const ROGERS_MASTERCARD_PROMO_PRINT = "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/Rogers-Mastercard_Promo-FR_Print.png";
+    const ROGERS_MASTERCARD_PROMO = "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/Rogers-Mastercard_Promo-FR_2.png";
+    const ROGERS_MASTERCARD_PROMO_PRINT = "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/Rogers-Mastercard_Promo-FR_Print_3.png";
     const BRING_OWN_DEVICE_PRINT_IMAGE = "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/fr/total-du-compte/media/apportez-votre-appareil.png";
 
     const JSON_SOURCES = {
@@ -3028,7 +3043,7 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
       if (config.fixedLineName) {
         return `
           <section class="section">
-            <div class="section-header"><h3>A · Informations</h3></div>
+            <div class="section-header"><h3>Informations</h3></div>
             <div class="section-body">
               <div class="readout important"><span>Nom de la ligne</span><strong data-fixed-name>${escapeHtml(config.fixedLineName)}</strong></div>
               ${renderActivationFeeSection()}
@@ -3040,7 +3055,7 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
       const defaultPlaceholder = type === "mobile" ? `Ligne mobile #${ordinal}` : `Ligne associée #${ordinal}`;
       return `
         <section class="section">
-          <div class="section-header"><h3>A · Informations</h3></div>
+          <div class="section-header"><h3>Informations</h3></div>
           <div class="section-body">
             <div class="grid-2">
               ${fieldHtml(config.phoneLabel, `<input type="text" inputmode="tel" placeholder="${defaultPlaceholder}" data-field="phone">`)}
@@ -3056,7 +3071,7 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
       return `
         <div class="section">
           <div class="section-header">
-            <h3>A.2 · Frais d’activation</h3>
+            <h3>Frais d’activation</h3>
             <button class="btn btn-success btn-mini" type="button" data-action="add-activation-discount"><i class="iconoir-label"></i><span>Ajouter un rabais</span></button>
           </div>
           <div class="section-body">
@@ -3074,7 +3089,7 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
       if (config.isOther) {
         return `
           <section class="section">
-            <div class="section-header"><h3>B · Service</h3></div>
+            <div class="section-header"><h3>Service</h3></div>
             <div class="section-body">
               ${fieldHtml("Description du service", `<input type="text" placeholder="${escapeHtml(config.servicePlaceholder)}" data-field="serviceDescription">`)}
               ${renderMonthlyPricingSection()}
@@ -3104,7 +3119,7 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
 
       return `
         <section class="section">
-          <div class="section-header"><h3>B · Forfait</h3></div>
+          <div class="section-header"><h3>Forfait</h3></div>
           <div class="section-body">
             <div class="grid-${Math.min(Math.max(details.length, 2), 4)}">${details.join("")}</div>
             ${renderMonthlyPricingSection()}
@@ -3117,7 +3132,7 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
       return `
         <div class="section">
           <div class="section-header">
-            <h3>B.1 · Tarif mensuel</h3>
+            <h3>Tarif mensuel</h3>
             <button class="btn btn-success btn-mini" type="button" data-action="add-plan-discount"><i class="iconoir-label"></i><span>Ajouter des rabais</span></button>
           </div>
           <div class="section-body">
@@ -3136,7 +3151,7 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
       return `
         <section class="section">
           <div class="section-header">
-            <h3>C · Options</h3>
+            <h3>Options</h3>
             <button class="btn btn-blue btn-mini" type="button" data-action="add-option"><i class="iconoir-box"></i><span>Ajouter une option</span></button>
           </div>
           <div class="section-body">
@@ -3152,7 +3167,7 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
       return `
         <section class="section" data-section="device">
           <div class="section-header">
-            <h3>${sectionLetter} · Appareil</h3>
+            <h3>Appareil</h3>
             <div class="radio-row">
               <button class="btn btn-blue btn-mini" type="button" data-action="add-device"><i class="iconoir-smartphone-device"></i><span>Ajouter un appareil</span></button>
               <button class="btn btn-red btn-mini hidden" type="button" data-action="remove-device"><i class="iconoir-trash"></i><span>Supprimer l’appareil</span></button>
@@ -3166,7 +3181,7 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
             <div class="hidden" data-container="deviceDetails">
               <div class="device-layout">
                 <div class="section">
-                  <div class="section-header"><h3>${sectionLetter}.1 · Appareil financé</h3></div>
+                  <div class="section-header"><h3>Appareil financé</h3></div>
                   <div class="section-body">
                     ${fieldHtml(config.deviceLabel, `<input type="text" list="${config.deviceList}" placeholder="${escapeHtml(config.devicePlaceholder)}" data-field="deviceName">`)}
                     ${config.hasFinancingType ? renderFinancingType(lineId) : ""}
@@ -3179,7 +3194,7 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
               </div>
               <div class="section">
                 <div class="section-header">
-                  <h3>${sectionLetter}.2 · Tarif de l’appareil</h3>
+                  <h3>Tarif de l’appareil</h3>
                   <button class="btn btn-success btn-mini" type="button" data-action="add-device-discount"><i class="iconoir-label"></i><span>Ajouter un rabais</span></button>
                 </div>
                 <div class="section-body">
@@ -3214,7 +3229,7 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
       const letter = type === "mobile" || type === "other" ? "E" : "D";
       return `
         <section class="section">
-          <div class="section-header"><h3>${letter} · Total pour la ligne</h3></div>
+          <div class="section-header"><h3>Total pour la ligne</h3></div>
           <div class="section-body">
             <div class="readout-grid">
               <div class="readout important"><span>Tarif mensuel de la ligne avant taxes</span><strong data-output="lineMonthly">0,00 $</strong></div>
@@ -3830,10 +3845,7 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
           <section class="print-card print-mastercard-card">
             <h2 class="print-card-title">Rogers Mastercard</h2>
             <div class="print-card-body print-mastercard-layout">
-              <div>
-                <img class="print-bank-logo" src="${escapeHtml(ROGERS_BANK_LOGO)}" alt="Banque Rogers">
-                <p class="print-note">Remises : 3 % du total mensuel + 2 % des dépenses normales inscrites (${formatCurrency(normalSpending)}).</p>
-              </div>
+              
               <img class="print-mastercard-promo" src="${escapeHtml(ROGERS_MASTERCARD_PROMO_PRINT)}" alt="Promotion Rogers Mastercard">
               <div class="print-mini-grid print-mastercard-kpis">
                 <div class="print-kpi"><span>Remises Mastercard</span><strong>${formatCurrency(cashback)}</strong></div>
