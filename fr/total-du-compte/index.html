@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calculateur de total du compte Rogers</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+    <title>Estimateur de compte</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css" />
   <style>
     /* Polices de marque Rogers et Fido */
@@ -2328,6 +2329,156 @@
       font-size: 16px;
     }
 
+
+
+    /* Mode impression noir et blanc */
+    .print-bw-toggle {
+      grid-column: 1 / -1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 7px;
+      min-height: 28px;
+      padding: 2px 4px 0;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 850;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .print-bw-toggle input {
+      width: auto;
+      margin: 0;
+      accent-color: #111827;
+      cursor: pointer;
+    }
+
+    .print-bw-toggle i {
+      font-size: .96rem;
+      color: currentColor;
+    }
+
+    .print-bw-toggle:hover {
+      color: var(--ink);
+    }
+
+    @media (max-width: 760px) {
+      .print-bw-toggle {
+        justify-content: center;
+        padding-top: 4px;
+      }
+    }
+
+    @media print {
+      body.print-bw {
+        --brand-accent: #000000 !important;
+        --brand-secondary: #000000 !important;
+        --soft-red: #ffffff !important;
+      }
+
+      body.print-bw .print-report,
+      body.print-bw .print-report * {
+        color: #000000 !important;
+        text-shadow: none !important;
+        box-shadow: none !important;
+      }
+
+      body.print-bw .print-topbar {
+        border-bottom: 2.4px solid #000000 !important;
+      }
+
+      body.print-bw .print-card {
+        border: 1.25px solid #000000 !important;
+        background: #ffffff !important;
+      }
+
+      body.print-bw .print-card-title {
+        background: #e5e5e5 !important;
+        border-bottom: 1.25px solid #000000 !important;
+        color: #000000 !important;
+      }
+
+      body.print-bw .print-card-title.important {
+        background: #d9d9d9 !important;
+        color: #000000 !important;
+        border-bottom-color: #000000 !important;
+      }
+
+      body.print-bw .print-kpi {
+        background: #ffffff !important;
+        border: 1px solid #222222 !important;
+      }
+
+      body.print-bw .print-kpi.highlight {
+        background: #efefef !important;
+        border: 1.7px solid #000000 !important;
+      }
+
+      body.print-bw .print-summary-group h3 {
+        color: #000000 !important;
+        border-bottom: 1px solid #444444 !important;
+        padding-bottom: 1px !important;
+      }
+
+      body.print-bw .print-contact-item {
+        background: transparent !important;
+        border: 0 !important;
+      }
+
+      body.print-bw .print-lines-table th {
+        background: #dedede !important;
+        color: #000000 !important;
+        border: 1.15px solid #000000 !important;
+      }
+
+      body.print-bw .print-lines-table td {
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: 1px solid #333333 !important;
+      }
+
+      body.print-bw .print-detail-item {
+        background: #ffffff !important;
+        border: 1px solid #c7c7c7 !important;
+      }
+
+      body.print-bw .print-detail-item span,
+      body.print-bw .print-money-note,
+      body.print-bw .print-muted,
+      body.print-bw .print-meta,
+      body.print-bw .print-note {
+        color: #000000 !important;
+      }
+
+      body.print-bw .print-detail-line + .print-detail-line {
+        border-top: 1px solid #777777 !important;
+      }
+
+      body.print-bw .print-device-thumb {
+        background: #ffffff !important;
+        border: 1px solid #000000 !important;
+      }
+
+      body.print-bw .print-logo,
+      body.print-bw .print-bank-logo,
+      body.print-bw .print-mastercard-promo,
+      body.print-bw .print-device-thumb {
+        filter: grayscale(1) contrast(1.3) !important;
+      }
+
+      body.print-bw .print-empty {
+        color: #000000 !important;
+        border-color: #000000 !important;
+        background: #ffffff !important;
+      }
+
+      body.print-bw .print-legal {
+        color: #000000 !important;
+        border-top: 1.2px solid #000000 !important;
+      }
+    }
+
   </style>
 </head>
 <body class="provider-rogers">
@@ -2359,6 +2510,10 @@
         <button class="btn btn-secondary" id="printBtn" type="button"><i class="iconoir-printer"></i><span>Imprimer</span></button>
         <button class="btn btn-outline" id="copySummaryBtn" type="button"><i class="iconoir-copy"></i><span>Copier</span></button>
         <button class="btn btn-danger" id="resetBtn" type="button"><i class="iconoir-erase"></i><span>Réinitialiser</span></button>
+        <label class="print-bw-toggle" for="printBwToggle" title="Optimise le rendu imprimé pour les imprimantes en tons de gris.">
+          <input type="checkbox" id="printBwToggle">
+          <span style="font-weight: normal; color: black;">Impression noir et blanc</span>
+        </label>
       </div>
     </header>
 
@@ -2543,6 +2698,7 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
     const ROGERS_BANK_LOGO = "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/brand/Banque-Rogers_horizontal_logo_red.png";
     const ROGERS_MASTERCARD_PROMO = "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/Rogers-Mastercard_Promo-FR_2.png";
     const ROGERS_MASTERCARD_PROMO_PRINT = "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/media/Rogers-Mastercard_Promo-FR_Print_3.png";
+    const PRINT_BW_STORAGE_KEY = "totalCompte_printBlackWhite";
     const BRING_OWN_DEVICE_PRINT_IMAGE = "https://raw.githubusercontent.com/rogersrepaccess/repaccess/main/fr/total-du-compte/media/apportez-votre-appareil.png";
 
     const JSON_SOURCES = {
@@ -2714,7 +2870,8 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
       jsonLoaded: 0,
       jsonFailed: 0,
       storeLocations: null,
-      selectedStore: null
+      selectedStore: null,
+      printBlackWhite: false
     };
 
     const els = {
@@ -2747,7 +2904,8 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
       storeLookupBtn: document.getElementById("storeLookupBtn"),
       storeCoordinates: document.getElementById("storeCoordinates"),
       advisorInput: document.getElementById("advisorInput"),
-      addLineOptions: document.querySelectorAll("[data-line-option]")
+      addLineOptions: document.querySelectorAll("[data-line-option]"),
+      printBwToggle: document.getElementById("printBwToggle")
     };
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -2756,6 +2914,7 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
       bindAddLineMenu();
       bindMoneyFocusBehavior();
       setProvider("rogers");
+      initPrintBlackWhitePreference();
       document.getElementById("resetBtn").addEventListener("click", resetAll);
       document.getElementById("printBtn").addEventListener("click", () => {
         preparePrintReport();
@@ -2778,6 +2937,40 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
       });
       updateTotals();
     });
+
+    function initPrintBlackWhitePreference() {
+      let savedValue = "false";
+      try {
+        savedValue = localStorage.getItem(PRINT_BW_STORAGE_KEY) || "false";
+      } catch (error) {
+        savedValue = "false";
+      }
+
+      setPrintBlackWhiteMode(savedValue === "true", false);
+
+      if (els.printBwToggle) {
+        els.printBwToggle.addEventListener("change", () => {
+          setPrintBlackWhiteMode(els.printBwToggle.checked, true);
+        });
+      }
+    }
+
+    function setPrintBlackWhiteMode(enabled, shouldPersist = true) {
+      state.printBlackWhite = Boolean(enabled);
+      document.body.classList.toggle("print-bw", state.printBlackWhite);
+
+      if (els.printBwToggle) {
+        els.printBwToggle.checked = state.printBlackWhite;
+      }
+
+      if (shouldPersist) {
+        try {
+          localStorage.setItem(PRINT_BW_STORAGE_KEY, state.printBlackWhite ? "true" : "false");
+        } catch (error) {
+          console.warn("Préférence d'impression noir et blanc non sauvegardée.", error);
+        }
+      }
+    }
 
     function bindBrandAndContactControls() {
       els.providerOptions.forEach(button => {
@@ -3763,6 +3956,7 @@ Les logos et marques affichés dans ce document sont la propriété exclusive de
 
 
     function preparePrintReport() {
+      document.body.classList.toggle("print-bw", Boolean(state.printBlackWhite));
       document.querySelectorAll(".line-card").forEach(card => recalculateLine(card));
       updateTotals();
     }
